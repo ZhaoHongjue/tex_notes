@@ -1,1 +1,110 @@
-\chapter{Functions and Models}\label{chap:chap1}
+\chapter{Functions and Models}\label{chap:chap1_FuncsModels}
+
+%% Section 1
+\section{Function Basics}\label{sec:chap1_func_basics}
+
+\subsection{Functions}\label{subsec:funcs}
+\begin{defn}[Function]\label{defn:function}
+    A function $f$ is the rule that assigns to each element
+    in a set $D$ exactly one element, called $f(x)$, in a set $E$.
+\end{defn}
+
+\begin{boxnote}{Notes about Definition~\ref{defn:function}}
+    \begin{itemize}
+        \item We usually consider functions for which sets $D$ and $E$ are sets of \emph{real numbers}.
+        \item The set $D$ is called \textbf{domain} of function $f$.
+        \item \textbf{Domain Convention}: The domain of the function is the set of \emph{all inputs for which the formula makes sense and gives a real-number output}.
+        \item The number of $f(x)$ is the \textbf{value of $f$ at $x$} and is read $f$ of $x$.
+        \item The \textbf{range} of $f$ is the set of all possible values of $f(x)$ as $x$ varies throughout the domain.
+        \item A symbol that represents an arbitrary number in the domain of a function $f$ is called an \textbf{independent variable}.
+        \item A symbol that represents a number in the range of $f$ is called dependent variable.
+        \item 4 ways to represent a function: by an equation, in a table, by a graph, or in words. 
+    \end{itemize}
+\end{boxnote} 
+
+\begin{thm}[The Vertical Line Test]
+    A curve in the $xy$-plane is the graph of a function of $x$ if
+    and only if no vertical line intersects the curve more than once.
+\end{thm}
+
+If each vertical line at $x = a$ intersects a curve only once, then exactly one function
+value is defined by $f(a) = b$. But if a line $x = a$ intersects the curve twice, at $(a, b)$
+and $(a, c)$, then the curve can't represent a function because \emph{a function can't assign 2 
+different values to $a$} according to Definition~\ref{defn:function}.
+
+\subsection{Piecewise Defined Function}\label{subsec:piecewise_func}
+\begin{defn}[Piecewise Defined Function]\label{defn:piecewise_func}
+    a function $f$ is called \textbf{piecewise defined function} if the function is defined
+    by different formulas in different parts of their domains.
+\end{defn}
+
+\begin{example} A function $f$ is defined by
+    \[
+        f(x) = \begin{cases}
+            1 - x & \text{if}~x \le 1\\
+            x^2 & \text{if}~x > 1
+        \end{cases}
+    \]
+\end{example}
+
+\begin{example} Absolute value function:
+    \[
+        f(x) = \abs{x} = \begin{cases}
+            x & \text{if} ~ x \ge 0\\
+            -x & \text{if} ~ x < 0
+        \end{cases}
+    \]
+\end{example}
+
+\subsection{Even and Odd Functions}\label{subsec:even_odd_funcs}
+\begin{defn}[Even Function]\label{defn:even_func}
+    If a function $f$ satisfies $f(-x) = f(x)$ for every number $x$ in its domain, then $f$ 
+    is called an \textbf{even function}.
+\end{defn}
+
+\begin{example}
+    The function $f(x) = x^2$ is even because
+    $$
+        f(-x) = (-x)^2 = x^2 = f(x).
+    $$
+\end{example}
+
+\begin{defn}[Odd Function]\label{defn:odd_func}
+    If a function $f$ satisfies $f(-x) = -f(x)$ for every number $x$ in its domain, then $f$ 
+    is called an \textbf{odd function}.
+\end{defn}
+
+\begin{example}
+    The function $f(x) = x^3$ is odd because
+    $$
+        f(-x) = (-x)^3 = -(x^3) = -f(x)
+    $$
+\end{example}
+
+\subsection{Increasing and Decreasing Functions}
+\begin{defn}[Increasing and Decreasing Functions]\label{defn:inc_dec_func}
+    A function $f$ is called \textbf{increasing function} on interval $I$ If
+    $$
+        f(x_1) < f(x_2) \quad \text{whenever} ~ x_1 < x_2 ~ \text{for} ~ \forall x_1, x_2 \in I.
+    $$
+    It's called \textbf{decreasing function} If
+    $$
+    f(x_1) > f(x_2) \quad \text{whenever} ~ x_1 < x_2 ~ \text{for} ~ \forall x_1, x_2 \in I.
+    $$
+\end{defn}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{tikzpicture}
+        \draw[->] (-1.5,0) -- (1.5,0);
+        \draw[->] (0,-1.5) -- (0,1.5);
+        \draw[domain=-1:1] plot(\x,{\x*\x*2 -1});
+    \end{tikzpicture}
+    \caption{The figure of $f(x) = 2x^2 - 1$}
+    \label{fig:inc_dec_func}
+\end{figure}
+
+\begin{example}
+    For $f(x) = 2x^2 - 1$ which is shown in Fig~\ref{fig:inc_dec_func},
+    it's decreasing in interval $(-\infty, 0)$ and it's increasing in interval $(0, +\infty)$.
+\end{example}

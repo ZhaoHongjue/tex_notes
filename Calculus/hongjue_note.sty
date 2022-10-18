@@ -1,13 +1,43 @@
 \ProvidesPackage{hongjue_note}
 
+
 %% Packages used in tex notes
+%% ----------------------------------
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
+\RequirePackage{physics}
 \RequirePackage{graphicx}
-\RequirePackage[colorlinks]{hyperref}
+\RequirePackage{enumitem}
+\RequirePackage[dvipsnames,svgnames]{xcolor}
+\RequirePackage{tcolorbox}
+\RequirePackage{thmbox}
+\RequirePackage{tikz}
+\RequirePackage{lipsum}
+\RequirePackage{hyperref}
 \RequirePackage[
     hmargin=1.25in,
-    vmargin=1in
+    vmargin=0.8in
 ]{geometry}
+% \RequirePackage{amsthm}
+
 
 %% Related Commands
+%% ----------------------------------
+\setlist[enumerate]{itemsep = 1pt}
+\setlist[itemize]{itemsep = 1pt}
+
+\newtheorem[M]{defn}{Definition}[chapter]
+\newtheorem[M]{thm}{Theorem}[chapter]
+\newtheorem{eg}{e.g.}[section]
+
+\newenvironment{note}[1]{\textbf{{#1}:}}{}
+\newenvironment{boxnote}[1]{
+    \begin{tcolorbox}[
+        colback = white, colframe=black, title = #1
+    ]
+}{\end{tcolorbox}}
+\newenvironment{colorboxnote}[1]{
+    \begin{tcolorbox}[
+        colback = blue!10, colframe=blue!60!black, title = #1
+    ]
+}{\end{tcolorbox}}
