@@ -35,38 +35,33 @@ where the sign \(\&\) can be \(\le\), \(\ge\) or \(=\).
 \end{note}
 
 
-\begin{boxnote}{Classification}
-
-\begin{note}{Natural Classification}
-    \begin{itemize}
-        \item \emph{Constrained problems}: \(\mathscr{F} \subset \R^n\).
-        \item \emph{Unconstrained problems}: \(\mathscr{F} \equiv \R^n\).
-        \item \emph{Smooth problems}: all \(f_j(\cdot)\) are differentiable.
-        \item \emph{Nonsmooth problems}: there are several nondifferentiable components \(f_k(\cdot)\).
-        \item \emph{Linearly constrained problems}: the functional constraints are affine:
-            \[
-                    f_j(x) = \langle \myvec{a}_j, \myvec{x} \rangle + b_j
-            \]
+\begin{note}{Classification}
+    \begin{enumerate}
+        \item \textbf{Natural Classification}:
             \begin{itemize}
-                \item \emph{Linear optimization Problem}: \(f_0(\cdot)\) is also affine.
-                \item \emph{Quadratic optimization problem}: \(f_0(\cdot)\) is Quadratic.
-                \item \emph{Quadratic constrained quadratic problem}: \(f_0(\cdot), \dots, f_m(\cdot)\) are all quadratic.
+                \item \emph{Constrained problems}: \(\mathscr{F} \subset \R^n\).
+                \item \emph{Unconstrained problems}: \(\mathscr{F} \equiv \R^n\).
+                \item \emph{Smooth problems}: all \(f_j(\cdot)\) are differentiable.
+                \item \emph{Nonsmooth problems}: there are several nondifferentiable components \(f_k(\cdot)\).
+                \item \emph{Linearly constrained problems}: the functional constraints are affine:
+                    \[
+                            f_j(x) = \langle \myvec{a}_j, \myvec{x} \rangle + b_j
+                    \]
+                    \begin{itemize}
+                        \item \emph{Linear optimization Problem}: \(f_0(\cdot)\) is also affine.
+                        \item \emph{Quadratic optimization problem}: \(f_0(\cdot)\) is Quadratic.
+                        \item \emph{Quadratic constrained quadratic problem}: \(f_0(\cdot), \dots, f_m(\cdot)\) are all quadratic.
+                    \end{itemize}
             \end{itemize}
-    \end{itemize}
+        \item \textbf{Based on the Feasible Set}:
+            \begin{itemize}
+                \item Problem~\ref{eq:general_min_problem} is called \emph{feasible} if \(\mathscr{F} \ne \emptyset\).
+                \item Problem~\ref{eq:general_min_problem} is called \emph{strictly} feasible if there exists an \(\myvec{x} \in Q\) such that \(f_j(\myvec{x}) < 0\) for all inequality constraints and \(f_j(\myvec{x}) = 0\) for all equality constraints. (\textit{Slater condition}.)
+            \end{itemize}
+        \item \textbf{Based on Solution}:
+            \begin{itemize}
+                \item A point \(\myvec{x}^* \in \mathscr{F}\) is called the optimal \emph{global solution} to problem~\ref{eq:general_min_problem} if \(f_0(\myvec{x}^*) \le f_0(\myvec{x})\) for all \(\myvec{x} \in \mathscr{F}\) (\textit{global minimum}). \(f_0(\myvec{x}^*)\) is called the global \emph{optimal value} of the problem.
+                \item A point \(\myvec{x}^* \in \mathscr{F}\) is called a \emph{local solution} to problem~\ref{eq:general_min_problem} if there exists a set \(\hat{\mathscr{F}} \subset \mathscr{F}\) such that \(\forall \myvec{x} \in \mathrm{int}\hat{\mathscr{F}}, ~f_0(\myvec{x}^*) \le f_0(\myvec{x})\). If \(\forall \myvec{x} \in \hat{\mathscr{F}} \setminus \{\myvec{{x}^*}\}, ~f_0(\myvec{x}^*) \le f_0(\myvec{x})\), then \(\myvec{x}^*\) is called \emph{strict} (or \emph{isolated}) local minimum.
+            \end{itemize}
+    \end{enumerate}
 \end{note}
-
-\begin{note}{Classification Based on the Feasible Set}
-    \begin{itemize}
-        \item Problem~\ref{eq:general_min_problem} is called \emph{feasible} if \(\mathscr{F} \ne \emptyset\).
-        \item Problem~\ref{eq:general_min_problem} is called \emph{strictly} feasible if there exists an \(\myvec{x} \in Q\) such that \(f_j(\myvec{x}) < 0\) for all inequality constraints and \(f_j(\myvec{x}) = 0\) for all equality constraints. (\textit{Slater condition}.)
-    \end{itemize}
-\end{note}
-
-\begin{note}{Classification Based on Solution}
-    \begin{itemize}
-        \item A point \(\myvec{x}^* \in \mathscr{F}\) is called the optimal \emph{global solution} to problem~\ref{eq:general_min_problem} if \(f_0(\myvec{x}^*) \le f_0(\myvec{x})\) for all \(\myvec{x} \in \mathscr{F}\) (\textit{global minimum}). \(f_0(\myvec{x}^*)\) is called the global \emph{optimal value} of the problem.
-        \item A point \(\myvec{x}^* \in \mathscr{F}\) is called a \emph{local solution} to problem~\ref{eq:general_min_problem} if there exists a set \(\hat{\mathscr{F}} \subset \mathscr{F}\) such that \(\forall \myvec{x} \in \mathrm{int}\hat{\mathscr{F}}, ~f_0(\myvec{x}^*) \le f_0(\myvec{x})\). If \(\forall \myvec{x} \in \hat{\mathscr{F}} \setminus \{\myvec{{x}^*}\}, ~f_0(\myvec{x}^*) \le f_0(\myvec{x})\), then \(\myvec{x}^*\) is called \emph{strict} (or \emph{isolated}) local minimum.
-    \end{itemize}
-\end{note}
-
-\end{boxnote}
