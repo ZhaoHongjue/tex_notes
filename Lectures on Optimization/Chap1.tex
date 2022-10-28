@@ -1,0 +1,72 @@
+\chapter{Nonlinear Optimization}\label{chap:nonlinear_optimization}
+
+In this chapter, we mainly focus on:
+\begin{itemize}
+    \item Main notations and concepts used in \emph{Continuous Optimization}.
+    \item Complexity Analysis of the problems of Global Optimization.
+    \item Local Minimization and 2 main methods: \emph{the Gradient Method} and \emph{the Newton Method}.
+    \item Some standard methods in General Nonlinear Optimization.
+\end{itemize}
+
+\section{The World of Nonlinear Optimization}\label{sec:the_world_of_nonlinear_optimization}
+
+\subsection{General Formulation of the Problem}\label{subsec:General_Formulation_of_the_Problem}
+Let \(\myvec{x}\) be an \(n\)-dimensional \emph{real vector}
+\[
+    \myvec{x} = \left( x^{(1)}, \dots, x^{(n)} \right)^\top \in \R^n
+\]
+and \(f_0(\cdot), \dots, f_m(\cdot)\) be some \emph{real-valued} functions defined on a set \(Q \subset \R^n\). In this way, let's consider the general minimization problem:
+\begin{equation}\label{eq:general_min_problem}
+    \begin{aligned}
+        &\min ~ f_0(\myvec{x}), \\
+        &\text{s.t.}~f_j(\myvec{x}) ~ \& ~ 0, \quad j = 1, \dots, m,\\
+        &\myvec{x} \in Q,
+    \end{aligned}
+\end{equation}
+where the sign \(\&\) can be \(\le\), \(\ge\) or \(=\).
+
+\begin{note}{Notations}
+    \begin{itemize}
+        \item \(f_0\) is called \emph{objective} function.
+        \item The vector function \(\myvec{f}(\myvec{x}) = \left( f_1(\myvec{x}), \dots, f_m(\myvec{x})^\top \right)\) is called the vector of \emph{functional constraints}.
+        \item The set \(Q\) is called the \emph{basic feasible set}.
+        \item The set \( \mathscr{F} = \{ x \in Q \mid f_j(\myvec{x}), ~j=1, \dots, m \}\) is called \emph{the entire feasible set} of problem~\ref{eq:general_min_problem}. 
+    \end{itemize}
+\end{note}
+
+
+\begin{boxnote}{Classification}
+
+\begin{note}{Natural Classification}
+    \begin{itemize}
+        \item \emph{Constrained problems}: \(\mathscr{F} \subset \R^n\).
+        \item \emph{Unconstrained problems}: \(\mathscr{F} \equiv \R^n\).
+        \item \emph{Smooth problems}: all \(f_j(\cdot)\) are differentiable.
+        \item \emph{Nonsmooth problems}: there are several nondifferentiable components \(f_k(\cdot)\).
+        \item \emph{Linearly constrained problems}: the functional constraints are affine:
+            \[
+                    f_j(x) = \langle \myvec{a}_j, \myvec{x} \rangle + b_j
+            \]
+            \begin{itemize}
+                \item \emph{Linear optimization Problem}: \(f_0(\cdot)\) is also affine.
+                \item \emph{Quadratic optimization problem}: \(f_0(\cdot)\) is Quadratic.
+                \item \emph{Quadratic constrained quadratic problem}: \(f_0(\cdot), \dots, f_m(\cdot)\) are all quadratic.
+            \end{itemize}
+    \end{itemize}
+\end{note}
+
+\begin{note}{Classification Based on the Feasible Set}
+    \begin{itemize}
+        \item Problem~\ref{eq:general_min_problem} is called \emph{feasible} if \(\mathscr{F} \ne \emptyset\).
+        \item Problem~\ref{eq:general_min_problem} is called \emph{strictly} feasible if there exists an \(\myvec{x} \in Q\) such that \(f_j(\myvec{x}) < 0\) for all inequality constraints and \(f_j(\myvec{x}) = 0\) for all equality constraints. (\textit{Slater condition}.)
+    \end{itemize}
+\end{note}
+
+\begin{note}{Classification Based on Solution}
+    \begin{itemize}
+        \item A point \(\myvec{x}^* \in \mathscr{F}\) is called the optimal \emph{global solution} to problem~\ref{eq:general_min_problem} if \(f_0(\myvec{x}^*) \le f_0(\myvec{x})\) for all \(\myvec{x} \in \mathscr{F}\) (\textit{global minimum}). \(f_0(\myvec{x}^*)\) is called the global \emph{optimal value} of the problem.
+        \item A point \(\myvec{x}^* \in \mathscr{F}\) is called a \emph{local solution} to problem~\ref{eq:general_min_problem} if there exists a set \(\hat{\mathscr{F}} \subset \mathscr{F}\) such that \(\forall \myvec{x} \in \mathrm{int}\hat{\mathscr{F}}, ~f_0(\myvec{x}^*) \le f_0(\myvec{x})\). If \(\forall \myvec{x} \in \hat{\mathscr{F}} \setminus \{\myvec{{x}^*}\}, ~f_0(\myvec{x}^*) \le f_0(\myvec{x})\), then \(\myvec{x}^*\) is called \emph{strict} (or \emph{isolated}) local minimum.
+    \end{itemize}
+\end{note}
+
+\end{boxnote}
