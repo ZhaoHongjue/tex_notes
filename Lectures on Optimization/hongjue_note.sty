@@ -13,7 +13,9 @@
 \RequirePackage{mathrsfs}
 \RequirePackage{thmbox}
 \RequirePackage{tikz}
+\RequirePackage[ruled]{algorithm2e}
 \RequirePackage{lipsum}
+\RequirePackage{setspace}
 \RequirePackage{hyperref}
 \RequirePackage[
     hmargin=1.25in,
@@ -27,12 +29,23 @@
 \setlist[enumerate]{itemsep = 1pt}
 \setlist[itemize]{itemsep = 1pt}
 
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\myvec}[1]{\boldsymbol{#1}}
+\linespread{1.2} 
+% \setlength{\parindent}{0pt} 
 
-\newtheorem[M]{defn}{Definition}[chapter]
-\newtheorem[M]{thm}{Theorem}[chapter]
-\newtheorem{eg}{e.g.}[section]
+\SetKwInOut{KwIn}{\textbf{Input}}
+\SetKwInOut{KwOut}{\textbf{Output}}
+\SetKwComment{KwComment}{/*}{*/}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\myvec}[1]{\boldsymbol{#1}}
+\newcommand{\norminf}[1]{\norm{#1}_{\infty}}
+
+\newtheorem[M]{defn}{Definition}[section]
+\newtheorem[M]{thm}{Theorem}[section]
+\newtheorem[S]{assum}{Assumption}[section]
+\newtheorem[S]{coro}{Corollary}[section]
+\newtheorem[S]{eg}{e.g.}[section]
 
 \newenvironment{note}[1]{\textbf{{#1}:}}{}
 \newenvironment{boxnote}[1]{
@@ -42,6 +55,6 @@
 }{\end{tcolorbox}}
 \newenvironment{colorboxnote}[1]{
     \begin{tcolorbox}[
-        colback = blue!10, colframe=blue!60!black, title = #1
+        colback = gray!10, colframe=gray!60!black, title = #1
     ]
 }{\end{tcolorbox}}
