@@ -6,6 +6,7 @@
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
 \RequirePackage{physics}
+\RequirePackage{bm}
 \RequirePackage{graphicx}
 \RequirePackage{enumitem}
 \RequirePackage[dvipsnames,svgnames]{xcolor}
@@ -26,9 +27,9 @@
 
 %% Related Commands
 %% ----------------------------------
-\setlist[enumerate]{itemsep = 1pt}
-\setlist[itemize]{itemsep = 1pt}
-
+\setlist[enumerate]{itemsep = 0.8pt}
+\setlist[itemize]{itemsep = 0.8pt}
+\raggedbottom
 \linespread{1.2} 
 % \setlength{\parindent}{0pt} 
 
@@ -38,13 +39,18 @@
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
-\newcommand{\myvec}[1]{\boldsymbol{#1}}
+\newcommand{\innerprod}[2]{\left\langle #1, #2 \right\rangle}
+% \newcommand{\myvec}[1]{\boldsymbol{#1}}
 \newcommand{\norminf}[1]{\norm{#1}_{\infty}}
+\newcommand{\solution}{\bar{\bm{x}}}
 
+\renewcommand{\grad}{\nabla}
+\newcommand{\hess}{\laplacian}
 \newtheorem[M]{defn}{Definition}[section]
 \newtheorem[M]{thm}{Theorem}[section]
 \newtheorem[S]{assum}{Assumption}[section]
 \newtheorem[S]{coro}{Corollary}[section]
+\newtheorem[S]{lemma}{Lemma}[section]
 \newtheorem[S]{eg}{e.g.}[section]
 
 \newenvironment{note}[1]{\textbf{{#1}:}}{}
