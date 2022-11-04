@@ -22,7 +22,7 @@
     hmargin=1.25in,
     vmargin=0.8in
 ]{geometry}
-% \RequirePackage{amsthm}
+\RequirePackage{chngcntr}
 
 
 %% Related Commands
@@ -31,6 +31,7 @@
 \setlist[itemize]{itemsep = 0.8pt}
 \raggedbottom
 \linespread{1.2} 
+\counterwithin{equation}{section}
 % \setlength{\parindent}{0pt} 
 
 \SetKwInOut{KwIn}{\textbf{Input}}

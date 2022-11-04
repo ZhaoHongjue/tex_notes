@@ -250,8 +250,8 @@ Let us conclude with the definition of our problem class. We fix our goal as fol
 \end{equation}
 
 \begin{coro}\label{coro:upper_complexity_of_grid}
-    According to Assumption~\ref{assum:lipschitz_objective_func} and
-    Theorem~\ref{thm:grid_err1}, the analytical complexity of problem 
+    According to~\ref{assum:lipschitz_objective_func} and
+    ~\ref{thm:grid_err1}, the analytical complexity of problem 
     class~\ref{eq:n_dimensional_box} for method \(\mathscr{G}\) is at most
     \[
         \mathscr{A}(\mathscr{G}) = \left( \left\lfloor \frac{L}{2\epsilon} \right\rfloor +1 \right)^n .
@@ -637,4 +637,18 @@ Based on the quadratic approximation, we can write down the \emph{second-order o
         f(\bm{y}) = f(\bm{x}^*) + \innerprod{\hess f(\bm{x}^*)(\bm{y} - \bm{x}^*)}{\bm{y} - \bm{x}^*} + o(\norm{\bm{y} - \bm{x}^*}^2) \ge f(\bm{x}^*).  
     \]
     Thus, \(\innerprod{\hess f(\bm{x}^*) \bm{s}}{\bm{s}} \ge 0\), for all \(\bm{s}\), \(\norm{\bm{s}} = 1\).
+\end{proof}
+
+Again, Theorem~\ref{thm:2nd_order_optimal} is a \emph{necessary} (\(2\)-nd-order) characteristic of a local minimum. The \emph{sufficient} condition is as follows.
+
+\begin{thm}\label{thm:suff_2nd_order_optimal}
+    Let a function \(f(\cdot)\) be twice differentiable on \(\R^n\) and let \(\bm{x}^* \in \R^n\) satisfy the following conditions:
+    \begin{equation}
+        \grad f(\bm{x}^*) = 0, \quad \hess f(\bm{x}^*) \succ 0.
+    \end{equation}
+    Then \(\bm{x}^*\) is a strict local minimum of \(f(\cdot)\)
+\end{thm}
+
+\begin{proof}[of Theorem~\ref{thm:suff_2nd_order_optimal}]
+    
 \end{proof}
