@@ -650,5 +650,99 @@ Again, Theorem~\ref{thm:2nd_order_optimal} is a \emph{necessary} (\(2\)-nd-order
 \end{thm}
 
 \begin{proof}[of Theorem~\ref{thm:suff_2nd_order_optimal}]
-    
+    In a small neighborhood of a point \(\bm{x}^*\) the function \(f(\cdot)\) can be represented as
+    \[
+        f(\bm{y}) = f(\bm{x}^*) + \frac{1}{2} \innerprod{\hess f(\bm{x}^*) (\bm{y} - \bm{x}^*)}{\bm{y} - \bm{x}^*} + o(\norm{\bm{y} - \bm{x}^*}^2)
+    \]
+    Since \(\lim_{r \to 0}\frac{o(r^2)}{r^2} = 0\), there exists a value \(\bar r > 0\) such that for all \(r \in [0, \bar r]\) we have
+    \[
+        \abs{o(r^2)} \le \frac{r^2}{4} \lambda_{\min} (\hess f(\bm{x}^*)).    
+    \]
+
+    In the view of our assumption, this eigenvalue is \emph{positive}. Therefore, for any \(\bm{y} \in \R^n\), \(0 \le \norm{\bm{y} - \bm{x}^*} \le \bar r\), we have
+    \[
+        \begin{aligned}
+            f(\bm{y}) &\ge f(\bm{x}^*) + \frac{1}{2} \lambda_{\min} (\hess f(\bm{x}^*)) \norm{\bm{y} - \bm{x}^*}^2 + o(\norm{\bm{y} - \bm{x}^*}^2)\\
+                      &\ge f(\bm{x}^*) + \frac{1}{4} \lambda_{\min} (\hess f(\bm{x}^*)) \norm{\bm{y} - \bm{x}^*}^2 > f(\bm{x}^*)
+        \end{aligned}
+    \]
 \end{proof}
+
+\subsection{Classes of Differentiable Functions}\label{subsec:classes-of-diff-funcs}
+\begin{defn}\label{defn:classes-diff-funcs}
+    Let \(Q\) be a subset of \(R^n\). We denote by \(C^{k,p}_L(Q)\) the class of functions with the following properties:
+    \begin{itemize}
+        \item any \(f \in C^{k, p}_L(Q)\) is \(k\) times continuously differentiable on \(Q\) 
+        \item its \(p\)th derivative is \emph{Lipschitz} continuous on \(Q\) with constant \(L\):
+            \[
+                \norm{\grad^p f(\bm{x}) - \grad^p f(\bm y)} \le L \norm{\bm x - \bm y}, \quad \forall \bm x, ~\bm y \in Q
+            \]
+    \end{itemize}
+\end{defn}
+
+Clearly we always have \(p \le k\). If \(q > k\), then \(C_L^{q, p}(Q) \subset C_{L}^{k, p}(Q)\). Note also that these classes possess the following property:
+
+\begin{thm}\label{thm:add-property}
+    If \(f_1 \in C^{k,p}_{L_1}(Q)\), \(f_2 \in C^{k,p}_{L_2}(Q)\) and \(\alpha_1,~\alpha_2 \in \R\), then for
+    \[
+        L_3 = \abs{\alpha_1} L_1 + \abs{\alpha_2} L_2  
+    \]
+    we have \(\alpha_1 f_1 + \alpha_2 f_2 \in C^{k, p}_{L_3}(Q)\).
+\end{thm}
+
+One of the most important classes of differentiable functions is \(C_L^{1, 1}(\R^n)\), \emph{the class of functions with Lipschitz continuous gradient}, which means that
+\[
+    \norm{\grad f(\bm{x}) - \grad f({\bm{y}})} \le L \norm{\bm{x} - \bm{y}}, \quad \forall f \in C_{L}^{1, 1};~\bm{x},~\bm{y} \in \R^n. 
+\]
+
+\begin{lemma}\label{lemma:C21}
+    A function \(f(\cdot)\) belongs to the class \(C_L^{2, 1}(\R^n) \subset C_L^{1, 1}(\R^n)\)
+    if and only if for all \(\bm{x} \in \R^n\) we have
+    \begin{equation}\label{eq:C21}
+        \norm{\hess f(\bm{x})} \le L.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}[of Lemma.~\ref{lemma:C21}]
+    pass
+\end{proof}
+
+For Eq.~\ref{eq:C21}, it can be rewritten as
+\begin{equation}
+    -L \bm{I}_n \preceq \hess f(\bm{x}) \preceq L \bm{I}_n.
+\end{equation}
+
+The next statement is important for the geometric interpretation of functions in \(C_L^{1, 1}(\R^n)\)
+\begin{lemma}\label{lemma:geometric-interpretation-C11L}
+    Let \(f \in C_L^{1, 1}(\R^n)\). Then we have
+    \begin{equation}
+        \abs{f(\bm{y}) - f(\bm{x}) - \innerprod{\grad f(\bm{x})}{\bm{y} - \bm{x}}} \le \frac{L}{2} \norm{\bm{y} - \bm{x}}^2.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}[of Lemma.~\ref{lemma:geometric-interpretation-C11L}]
+    pass
+\end{proof}
+
+The second main class of functions is type \(C^{2, 2}_M\), \emph{the class of twice differentiable functions with Lipschitz continuous Hessian}.
+Recall that for \(f \in C^{2,2}_M(\R^n)\), we have
+\[
+    \norm{\hess f(\bm{x}) - \hess f(\bm{y})} \le M \norm{\bm{x} - \bm{y}}, \quad \forall \bm{x},~\bm{y} \in \R^n. 
+\]
+
+\begin{lemma}
+    Let \(f \in C^{2,2}_M(\R^n)\). The for all \(\bm{x}, ~\bm{y} \in \R^n\) we have
+    \begin{equation}\label{eq:C22M_1}
+        \norm{\grad f(\bm{y}) - \grad f(\bm{x}) - \hess f(\bm{x})(\bm{y} -\bm{x})} \le \frac{M}{2} \norm{\bm{y} - \bm{x}}^2.
+    \end{equation}
+    \begin{equation}\label{eq:C22M_2}
+        \abs{f(\bm{y}) - f(\bm{x}) - \innerprod{\grad f(\bm{x})}{\bm{y} - \bm{x}} - \frac{1}{2} \innerprod{\hess f(\bm{x})(\bm{y} -\bm{x})}{\bm{y} - \bm{x}}} \le \frac{M}{6} \norm{\bm{y} - \bm{x}}^3.
+    \end{equation}
+\end{lemma}
+
+\begin{coro}
+    Let \(f \in C^{2,2}_M(\R^n)\) and \(\bm{x},~\bm{y} \in \R^n\) with \(\norm{\bm{y} - \bm{x}} = r\). Then
+    \[
+        \hess f(\bm{x}) - Mr \bm{I}_n \preceq \hess f(\bm{y}) \preceq \hess f(\bm{x}) + Mr\bm{I}_n.  
+    \]
+\end{coro}
