@@ -1,0 +1,55 @@
+\section{Minimization of Smooth Functions}\label{sect:minimization-of-smooth-functions}
+\subsection{Smooth Convex Functions}\label{subsect:smooth-convex-functions}
+
+In this section, we consider the unconstrained minimization problem
+\begin{equation}\label{eq:smooth-convex-opt}
+    \min_{\xB \in \R^n} f(\xB),
+\end{equation}
+where the objective function \(\func{f}\) is smooth enough. \(\mathscr{F}\) represents 
+\emph{differentiable functions}.
+
+\begin{assum}\label{assum:diff-1st-opt-cond-suff}
+    For any \(f \in \mathscr{F}\), the first-order optimality condition is sufficient for a point
+    to be a global solution to \ref{eq:smooth-convex-opt} 
+\end{assum}
+
+\begin{assum}\label{assum:diff-add}
+    If \(f_1,~f_2 \in \mathscr{F}\) and \(\alpha,~\beta \ge 0\), then 
+    \(\alpha f_1 + \beta f_2 \in \mathscr{F}\).
+\end{assum}
+
+\begin{assum}\label{assum:diff-linear}
+    Any linear function \(l(\xB) = \alpha + \innerprod{\aB}{\xB}\) belongs to \(\mathscr{F}\).
+\end{assum}
+Note that the linear function \(\func{l}\) perfectly fits Assumption~\ref{assum:diff-1st-opt-cond-suff}.
+Clearly, \(\grad l(\xB) = 0\) implies that this function is constant, and any point \(\R^n\) is its global
+minimum.
+
+\begin{defn}[Convex Set]\label{defn:convex-set}
+    A set \(Q \subseteq \R^n\) is called \emph{convex} if we have
+    \[
+        \alpha \xB + (1 - \alpha) \yB \in Q \quad 
+        \forall \xB,~\yB \in Q ~\text{and}~ \forall \alpha \in [0, 1]. 
+    \]
+\end{defn}
+
+\begin{defn}[Convex Function]\label{defn:convex-func}
+    A \emph{continuously differentiable} function \(\func{f}\) is called \emph{convex} on a convex set
+    \(Q\) (notation \(f \in \mathscr{F}^1(Q)\)) if we have
+    \begin{equation}\label{eq:convex-func}
+        f(\yB) \ge f(\xB) + \innerprod{\grad f(\xB)}{\yB - \xB}.  
+    \end{equation}
+    If \(-\func{f}\) is convex, we call \(\func{f}\) concave.
+\end{defn}
+
+\begin{thm}\label{thm:convex-global-min}
+    If \(f \in \mathscr{F}^1(\R^n)\) and \(\grad f(\xB^*) = 0\) then \(\xB^*\) is the global minimum
+    of \(\func{f}\) on \(\R^n\).
+\end{thm}
+
+\begin{proof}[of Theorem~\ref{thm:convex-global-min}]
+    In the inequality~\ref{eq:convex-func}, for any \(\xB \in \R^n\) we have
+    \[
+        f(\xB) \ge f(\xB^*) + \innerprod{\grad f(\xB^*)}{\xB - \xB^*} = f(\xB^*).  
+    \]
+\end{proof}

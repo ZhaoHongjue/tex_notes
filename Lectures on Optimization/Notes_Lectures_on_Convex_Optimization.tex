@@ -1,5 +1,5 @@
 \documentclass[openany]{book}
-\usepackage{hongjue_note}
+\usepackage{opt}
 
 \title{Lectures on Convex Optimization}
 \author{Hongjue Zhao}
@@ -12,8 +12,14 @@
 \tableofcontents
 
 \mainmatter
-\include{Chap1.tex}
-\include{Chap2.tex}
-\include{Chap3.tex}
+\chapter{Smooth Convex Optimization}\label{chap:smooth-convex-opt}
+{
+    \input{chap2/2-1.tex}
+}
+% \include{Chap1.tex}
+% \include{Chap2.tex}
+% \include{Chap3.tex}
+% \chapter{Smooth Convex Optimization}
+% \include{chap2/2-1.tex}
 
 \end{document}

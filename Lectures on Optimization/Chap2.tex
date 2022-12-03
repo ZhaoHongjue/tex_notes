@@ -1,32 +1,13 @@
-\chapter{Smooth Convex Functions}\label{chap:smooth_convex_opt}
+\documentclass{article}
+\usepackage{opt}
 
-\newpage
-\section{Minimization of Smooth Functions}\label{sec:min_smooth_funcs}
+\title{Smooth Convex Optimization}
+\author{Hongjue Zhao}
+\date{}
 
-\subsection{Smooth Convex Functions}\label{subsec:smooth_convex_funcs}
-
-\begin{thm}\label{thm:convex_funcs_thm}
-    All conditions below, holding for all \(\bm{x},~\bm{y} \in \R^n\) and \(\alpha \in [0, 1]\),
-    are equivalent to the inclusion \(f \in \mathscr{F}_{L}^{1,1}(\R^n, \norm{\cdot})\):
-    \begin{equation}\label{eq:convex_func1}
-        0 \le f(\bm{y}) - f(\bm{x}) - \innerprod{\grad f(\bm{x})}{\bm{y} - \bm{x}} \le  \frac{L}{2} \norm{\bm{x} - \bm{y}}^2.
-    \end{equation}
-    \begin{equation}\label{eq:convex_func2}
-        f(\bm{x}) + \innerprod{\grad f(\bm{x})}{\bm{y} - \bm{x}} + \frac{1}{2L}\norm{\grad f(\bm{x}) - \grad f(\bm{y})}^2_* \le f(\bm{y}).
-    \end{equation}
-    \begin{equation}\label{eq:convex_func3}
-        \frac{1}{L}\norm{\grad f(\bm{x}) - \grad f(\bm{y})}^2_* \le \innerprod{\grad f(\bm{x}) - \grad f(\bm{y})}{\bm{x} - \bm{y}}.
-    \end{equation}
-    \begin{equation}\label{eq:convex_func4}
-        0 \le \innerprod{\grad f(\bm{x}) - \grad f(\bm{y})}{\bm{x} - \bm{y}} \le L\norm{\bm{x} - \bm{y}}^2.
-    \end{equation}
-    \begin{equation}\label{eq:convex_func5}
-        0 \le \innerprod{\grad f(\bm{x}) - \grad f(\bm{y})}{\bm{x} - \bm{y}} \le L\norm{\bm{x} - \bm{y}}^2.
-    \end{equation}
-    \begin{equation}\label{eq:convex_func6}
-        \alpha f(\bm{x}) + (1 - \alpha) f(\bm{y}) \ge f(\alpha \bm{x} + (1 - \alpha) \bm{y}) + \frac{\alpha(1 - \alpha)}{2L} \norm{\grad f(\bm{x}) - \grad f(\bm{y})}^2_*.
-    \end{equation}
-    \begin{equation}\label{eq:convex_func7}
-        0 \le \alpha f(\bm{x}) + (1 - \alpha) f(\bm{y}) - f(\alpha \bm{x} + (1 - \alpha) \bm{y}) \le \alpha (1 - \alpha) \frac{L}{2} \norm{\bm{x} - \bm{y}}^2.
-    \end{equation}
-\end{thm}
+\begin{document}
+    \maketitle
+    {
+        \input{chap2/2-1.tex}
+    }
+\end{document}
