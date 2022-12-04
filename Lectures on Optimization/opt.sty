@@ -10,19 +10,22 @@
 \RequirePackage{graphicx}
 \RequirePackage{enumitem}
 \RequirePackage[dvipsnames,svgnames]{xcolor}
+\usepackage{framed}
+\RequirePackage{hyperref}
+\usepackage[framed,amsmath,hyperref,thmmarks]{ntheorem}
 \RequirePackage{tcolorbox}
 \RequirePackage{mathrsfs}
-\RequirePackage{thmbox}
+\RequirePackage{ntheorem}
 \RequirePackage{tikz}
 \RequirePackage[ruled]{algorithm2e}
 \RequirePackage{lipsum}
 \RequirePackage{setspace}
-\RequirePackage{hyperref}
 \RequirePackage[
     hmargin=1.25in,
     vmargin=0.8in
 ]{geometry}
 \RequirePackage{chngcntr}
+
 
 
 %% Related Commands
@@ -38,6 +41,9 @@
 \SetKwInOut{KwOut}{\textbf{Output}}
 \SetKwComment{KwComment}{/*}{*/}
 
+
+%% Math Commands
+%% -------------------
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\innerprod}[2]{\left\langle #1, #2 \right\rangle}
@@ -57,13 +63,40 @@
 \renewcommand{\grad}{\nabla}
 \newcommand{\hess}{\laplacian}
 
-\newtheorem[M]{defn}{Definition}[section]
-\newtheorem[M]{thm}{Theorem}[section]
-\newtheorem[S]{assum}{Assumption}[section]
-\newtheorem[S]{coro}{Corollary}[section]
-\newtheorem[S]{lemma}{Lemma}[section]
-\newtheorem[S]{eg}{e.g.}[section]
+%% Theorem Commands
+%% -----------------
+\theoremstyle{break}
+\theoremseparator{}
+\theoremheaderfont{\normalfont\bfseries}\theorembodyfont{\slshape}
+\theoremsymbol{\ensuremath{\diamondsuit}}
+\newframedtheorem{thm}{Theorem}[section]
 
+\theoremsymbol{\ensuremath{\heartsuit}}
+\newframedtheorem{lemma}{Lemmas}[section]
+
+\theoremsymbol{\ensuremath{\spadesuit}}
+\newframedtheorem{coro}{Corollary}[section]
+
+\theoremsymbol{\ensuremath{\clubsuit}}
+\newframedtheorem{defn}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{assum}{Assumption}[section]
+
+\theoremheaderfont{\sc}\theorembodyfont{\upshape}
+\theoremstyle{nonumberplain}
+\theoremseparator{}
+\theoremsymbol{\rule{1ex}{1ex}}
+\newtheorem{proof}{Proof}
+
+\theoremstyle{plain}
+\theorembodyfont{\upshape}
+\theoremsymbol{\ensuremath{\ast}}
+\theoremseparator{}
+\newtheorem{example}{Example}[section]
+
+%% New Env
+%% ----------------
 \newenvironment{note}[1]{\textbf{{#1}:}}{}
 \newenvironment{boxnote}[1]{
     \begin{tcolorbox}[
