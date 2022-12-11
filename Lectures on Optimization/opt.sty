@@ -15,7 +15,6 @@
 \usepackage[framed,amsmath,hyperref,thmmarks]{ntheorem}
 \RequirePackage{tcolorbox}
 \RequirePackage{mathrsfs}
-\RequirePackage{ntheorem}
 \RequirePackage{tikz}
 \RequirePackage[ruled]{algorithm2e}
 \RequirePackage{lipsum}
@@ -80,7 +79,8 @@
 \theoremsymbol{\ensuremath{\clubsuit}}
 \newframedtheorem{defn}{Definition}[section]
 
-\theoremstyle{plain}
+\theoremstyle{break}
+\theoremsymbol{nonumberplain}
 \newtheorem{assum}{Assumption}[section]
 
 \theoremheaderfont{\sc}\theorembodyfont{\upshape}
