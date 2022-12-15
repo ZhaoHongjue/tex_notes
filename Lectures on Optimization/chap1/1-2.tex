@@ -85,7 +85,7 @@ where \(\innerprod{\cdot}{\cdot}\) is the standard inner product in correspondin
         taking the limit as \(\bm{y}_k \to \solution\), we can obtain the result.
     \end{proof}
 
-    \begin{colorboxnote}{The Fastest Local Decrease}
+    \begin{boxnote}{The Fastest Local Decrease}
         Let \(\bm{s}\) be a direction in \(\R^n\), \(\norm{\bm{s}}\) = 1. Consider the local decrease of the function \(f(\cdot)\) along the direction \(\bm{s}\):
         \[
             \begin{aligned}
@@ -101,7 +101,7 @@ where \(\innerprod{\cdot}{\cdot}\) is the standard inner product in correspondin
             \Delta(\bm{s}) = -\innerprod{\grad f(\solution)}{\grad f(\solution)} / \norm{\grad f(\solution)} = - \norm{\grad f(\solution)}.
         \]
         Thus, the direction of \(-\grad f(\solution)\) (\emph{the anti-gradient}) is the direction of the \emph{fastest local decrease} of the function \(f(\cdot)\) at point \(\solution\).
-    \end{colorboxnote}
+    \end{boxnote}
 \end{note}
 
 \begin{thm}[First-Order Optimality Condition]\label{thm:1st_order_optimal}
@@ -138,7 +138,7 @@ where \(\innerprod{\cdot}{\cdot}\) is the standard inner product in correspondin
     \]
 \end{defn}
 
-\begin{colorboxnote}{Hessian Matrix}
+\begin{boxnote}{Hessian Matrix}
     For Hessian matrix \(\hess f(\solution)\):
     \begin{enumerate}
         \item \(\hess f(\solution)^{(i, j)} = \pdv{f(\solution)}{x^{(i)}}{x^{(j)}}\).
@@ -148,7 +148,7 @@ where \(\innerprod{\cdot}{\cdot}\) is the standard inner product in correspondin
                     \grad f(\bm{y}) = \grad f(\solution) + \hess f(\solution) (\bm{y} - \solution) + \bm{o}(\norm{\bm{y} - \solution}) \in \R^n
               \]
     \end{enumerate}
-\end{colorboxnote}
+\end{boxnote}
 
 Based on the quadratic approximation, we can write down the \emph{second-order optimality condition}.
 
@@ -279,3 +279,317 @@ Recall that for \(f \in C^{2,2}_M(\R^n)\), we have
         \hess f(\bm{x}) - Mr \bm{I}_n \preceq \hess f(\bm{y}) \preceq \hess f(\bm{x}) + Mr\bm{I}_n.  
     \]
 \end{coro}
+
+\subsection{The Gradient Method}
+
+As we have already seen, the \emph{antigradient} is the direction of locally steepest
+descent of a differentiable function. So let's consider the following strategy.
+
+\begin{boxnote}{Gradient Method}
+    \textbf{Choose} \(\xB_0 \in \R^n\).
+
+    \textbf{Iterate} \(\xB_{k+1} = \xB_k - h_k \grad f(\xB_k),~k=0, 1, \dots\).
+\end{boxnote}
+
+This scheme is called \emph{Gradient Method}. The scalar factor \(h_k\) are called \emph{step sizes} and they
+are positive.
+
+There are many variants of this method, which differ one from another by the \emph{step-size strategy}.
+\begin{enumerate}
+    \item The sequence \(\{h_k\}_{k=0}^\infty\) is chosen \emph{in advance}. For instance
+        \[
+            \begin{aligned}
+                &h_k = h > 0,~\text{(constant step)}
+                &h_k = \frac{h}{\sqrt{k+1}}
+            \end{aligned}  
+        \]
+        This is the simplest one. It is often used in the context of Convex Optimization. In this framework, the behavior of functions
+        is much predictable than in general nonlinear case.
+    \item \emph{Full relaxation}:
+        \[
+            h_k = \mathop{\arg\min}_{h \ge 0} f(\xB_k - h \grad f(\xB_k)).  
+        \]
+        This strategy is completely \emph{theoritical}. It is never used in practice since even in one-dimensional case we cannot
+        find the \emph{exact minimum in finite time}.
+    \item The \emph{Armijo} rule: Find \(\xB_{k+1} =\xB_k - h\grad f(\xB_k)\) with \(h > 0\) such that
+        \[
+            \begin{aligned}
+                \alpha \innerprod{\grad f(\xB_k)}{\xB_k - \xB_{k+1}} &\le f(\xB_k) - f(\xB_{k+1})\\
+                \beta \innerprod{\grad f(\xB_k)}{\xB_k - \xB_{k+1}} &\ge f(\xB_k) - f(\xB_{k+1})
+            \end{aligned}  
+        \]
+        where \(0 < \alpha < \beta < 1\) are some fixed parameters.
+\end{enumerate}
+
+The third strategy is used in the majority of practical algorithms. It has the following geometric interpretation.
+Let us fix \(\xB \in \R^n\) assuming that \(\grad f(\xB) \ne 0\). Consider the following function of one variable:
+\[
+    \phi(h) = f(\xB - h \grad f(\xB)), \quad h \ge 0.  
+\]
+
+Then the step-size values acceptable for this strategy belong to thee part of the graph of \(\phi\) which is located between \(2\) linear functions:
+\[
+    \phi_1(h) = f(\xB) - \alpha h \norm{\grad f(\xB)}^2, \quad \phi_2(h) = f(\xB) - \beta h \norm{\grad f(\xB)}^2.  
+\]
+Note that \(\phi(0) = \phi_1(0) = \phi_2(0)\) and \(\phi'(0) < \phi_2'(0) < \phi_1'(0) < 0\). Therefore, the acceptable values exist unless \(\phi(\cdot)\)
+is not bounded below.
+
+Let us estimate the performace of Gradient Method. Consider the problem
+\begin{equation}\label{eq:grad-problem}
+    \min_{\xB \in \R^n} f(\xB),
+\end{equation}
+with \(f \in C_{L}^{1,1}(\R^n)\), and assume that \(f(\cdot)\) is bounded below on \(\R^n\).
+
+For one gradient step, consider \(\yB = \xB - h \grad f(\xB)\). Then, in view of Lemma.~\ref{lemma:geometric-interpretation-C11L}, we have
+\begin{equation}\label{eq:one-step-grad}
+    \begin{aligned}
+        f(\yB) &\le f(\xB) + \innerprod{\grad f(\xB)}{\yB - \xB} + \frac{L}{2} \norm{\yB - \xB}^2 \\
+        &= f(\xB) - h\left(1 - \frac{h}{2}L\right)\norm{\grad f(\xB)}^2.
+    \end{aligned}
+\end{equation}
+
+In order to get the best upper bound for the possible decrease of the objective function, we have to solve the following one-dimensional problem:
+\[
+    \Delta(h) = -h \left(1 - \frac{h}{2}L\right) \to \min_h.  
+\]
+Computing the derivative of this function, we conclude that the optimal step size \(h^* = \frac{1}{L}\), which is a minimum of \(\Delta(h)\) since 
+\(\Delta''(h) = L > 0\).
+
+Therefore, we can get that one step of the Gradient Method decreases the value of the objective function at least as follows:
+\[
+    f(\yB) \le f(\xB) - \frac{1}{2L} \norm{\grad f(\xB)}^2.  
+\]
+
+Let \(\xB_{k+1} = \xB_k - h_k \grad f(\xB_k)\). 
+\begin{enumerate}
+    \item {
+        \textbf{For the constant step strategy}: \(h_k = h\). Then we have
+        \[
+            f(\xB_k) - f(\xB_{k+1}) \ge h\left(1 - \frac{1}{2}Lh\right) \norm{\grad f(\xB_k)}^2.  
+        \]
+        If we choose \(h_k = \frac{2\alpha}{L}\) with \(\alpha \in (0, 1)\), then
+        \[
+            f(\xB_k) - f(\xB_{k+1}) \ge \frac{2}{L} \alpha (1 - \alpha) \norm{\grad f(\xB_k)}^2.  
+        \]
+    }
+    \item {
+        \textbf{For the full relaxation strategy}: 
+        \[
+            f(\xB_k) - f(\xB_{k+1}) \ge \frac{1}{2L} \norm{\grad f(\xB_k)}^2  
+        \]
+    }
+    \item {
+        \textbf{For the Armijo rule}:
+        \[
+            f(\xB_k) - f(\xB_{k+1}) \le \beta \innerprod{\grad f(\xB_k)}{\xB_k - \xB_{k+1}} = \beta h_k \norm{\grad f(\xB_k)}^2.  
+        \]
+        From \ref{eq:one-step-grad}, we obtain
+        \[
+            f(\xB_k) - f(\xB_{k+1}) \ge h_k \left(1 - \frac{h_k}{2}L\right) \norm{\grad f(\xB_k)}^2.  
+        \]
+        Thus, \(h_k \ge \frac{2}{L}(1 - \beta)\). Furthermore, 
+        \[
+            f(\xB_k) - f(\xB_{k+1}) \ge \alpha \innerprod{\grad f(\xB_k)}{\xB_k - \xB_{k+1}} = \alpha h_k \norm{\grad f(\xB_k)}^2.
+        \] `'
+        Combining this inequality with the previous one, we conclude that
+        \[
+            f(\xB_k) - f(\xB_{k+1}) \ge \frac{2}{L}\alpha (1 - \beta) \norm{\grad f(\xB_k)}^2.  
+        \]
+    }   
+\end{enumerate}
+
+Above all, we have proved that we have
+\begin{equation}\label{eq:general-one-step-grad}
+    f(\xB_k) - f(\xB_{k+1}) \ge \frac{\omega}{L} \norm{\grad f(\xB_k)}^2,
+\end{equation} 
+where \(\omega\) is some positive constant.
+
+Now we are already to estimate the performace of Gradient Method. Summing up the 
+inequalities \ref{eq:general-one-step-grad} for \(k = 0, \dots, N\), we obtain
+\begin{equation}\label{eq:sum-grad-desc}
+    \frac{\omega}{L} \sum_{k=0}^N \norm{\grad f(\xB_k)}^2 \le f(\xB_0) - f(\xB_{N+1}) \le f(\xB_0) - f^*,  
+\end{equation}
+where \(f^*\) is lower bounds for the values of objective function in the problem \ref{eq:grad-problem}. As 
+a simple consequence of bound \ref{eq:sum-grad-desc}, we have
+\[
+    \lim_{k\to \infty}\norm{\grad f(\xB_k)} = 0  
+\]
+
+However, we also say something about the \emph{rate of convergence}. We define
+\[
+    g_N^* = \min_{0 \le k \le N} \norm{\grad f(\xB_k)}.  
+\]
+
+Then in view of \ref{eq:sum-grad-desc}, we come to the following inequality:
+\begin{equation}\label{eq:rate-of-convergence-gN}
+    g_N^* \le \frac{1}{N+1}\left[\frac{L}{\omega} (f(\xB_0) - f^*)\right]^{1/2}
+\end{equation}
+
+The right-hand side of this inequality describes the rate of convergence of the sequence of the sequence \(\{g_N^*\}\) to zero.
+Our current goal is to approach a minimum of the optimization problem \ref{eq:grad-problem}.
+However, in general, even this goal is unreachable for the Gradient Method.
+
+\begin{example}
+    Consider the following function of two variables:
+    \[
+        f(\xB) \equiv f(x^{(1)}, x^{(2)}) = \frac{1}{2} \left(x^{(1)}\right)^2 + \frac{1}{4} \left(x^{(2)}\right)^4
+        - \frac{1}{2}\left(x^{(2)}\right)^2. 
+    \]
+    The gradient of this function is \(\grad f(\xB) = \left(x^{(1)}, \left(x^{(2)}\right)^3 - x^{(2)}\right)^\top\).
+    There are only three points which can pretend to be a local minimum of this function:
+    \[
+        \xB_1^* = (0,0), \quad \xB_2^* = (0, -1), \quad \xB_3^* = (0, 1).  
+    \]
+    Computing the Hessian of this function,
+    \[
+        \hess f(\xB) = \begin{pmatrix}
+            1 & 0 \\
+            0 & 3\left(x^{(2)}\right)^2 - 1
+        \end{pmatrix},  
+    \]
+    we conclude that \(\xB^*_2\) and \(\xB^*_3\) are isolated local minima, but \(\xB_1^*\) is only a \emph{stationary point} of this function.
+    In deed, \(f(\xB^*_1) = 0\) and \(f(\xB_1^* + \epsilon \eB_2) = \frac{\epsilon^4}{4} - \frac{\epsilon^2}{2} < 0\) for \(\epsilon\) small enough.
+
+    Let's consider now trajectory of the Gradient Method which starts at \(\xB_0 = (1, 0)\). The entire sequence will have second coordinate equal to zero.
+    This means that this sequence converges to \(\xB^*_1\).
+\end{example}
+
+The \emph{rate of convergence} delivers an \emph{upper} complexity bound for the corresponding problem class. Such a bound is always justified by some numerical method.
+A method for which the upper complexity bound is proportional to the \emph{lower} complexity bound of the problem class is said to be \emph{optimal}.
+
+Consider the following problem class \(\mathscr{G}_*\).
+\begin{boxnote}{Problem class \(\mathscr{G}_*\)}
+    \begin{itemize}
+        \item \textbf{Model}: 
+            \begin{enumerate}
+                \item Unconstrained minimization.
+                \item \(f \in C^{1, 1}_L(\R^n)\).
+                \item \(f(\cdot)\) is bounded below by the value \(f^*\).
+            \end{enumerate}
+        \item \textbf{Oracle}: First-Order Black Box
+        \item \textbf{\(\varepsilon\)-solution}: \(f(\bar{\xB}) \le f(\xB_0),~\norm{\grad f(\bar{\xB})} \le \epsilon\)
+    \end{itemize}
+\end{boxnote}
+
+Note that the inequality \ref{eq:rate-of-convergence-gN} can be used in order to obtain an upper bound for the number of steps (= calls of oracle), which is necessary to
+find a point where the norm of the gradient is small. For that, let us write down the following inequality:
+\begin{equation}\label{eq:upper-bound-grad}
+    g_N^* \le \frac{1}{N+1}\left[\frac{L}{\omega} (f(\xB_0) - f^*)\right]^{1/2} \le \epsilon.
+\end{equation}
+Therefore, if \(N + 1 \ge \frac{L}{\omega \epsilon^2} (f(\xB_0) - f^*)\), then we necessarily have \(g_N^* \le \epsilon\).
+The lower complexity bound for the class \(\mathscr{G}_*\) is unknown.
+
+\begin{thm}
+    Let the function \(f(\cdot)\) satisfy our assumptions and let the starting point \(\xB_0\) be close enough to a strict local minimum \(\xB^*\):
+    \[
+        r_0 = \norm{\xB_0 - \xB^*} < \bar{r} = \frac{2\mu}{M}.  
+    \]
+    Then the Gradient Method with step size converges as follows:
+    \[
+        \norm{\xB_k - \xB^*} \le \frac{\bar{r}r_0}{\bar{r} - r_0} \left(1 - \frac{2\mu}{L+3\mu}\right)^k. 
+    \]
+\end{thm}
+This type of rate of convergence is called \emph{linear}.
+
+\subsection{Newton's Method}\label{subsect:newton-method}
+Newton's Method is widely known as a technique for finding a root of univariate function. Let \(\phi(\cdot): \R \to \R\). Consider the equation
+\[
+    \phi(t^*) = 0.  
+\]
+Assume that we know some \(t \in \R\) which is close enough to \(t^*\). Note that
+\[
+    \phi(t + \Delta t) = \phi(t) + \phi'(t) \Delta t + o(|\Delta t|).  
+\]
+Therefore, the solution can be approximated by the solution of the following \emph{linear} equation:
+\[
+    \phi(t) + \phi'(t) \Delta t = 0.  
+\]
+Under some conditions, we can expect the displacement \(\Delta t\) to be a good approximation to the optimal displacement \(\Delta t^* = t^* - t\).
+Converting this idea into an algorithm, we get the process
+\[
+    t_{k+1} = t_k - \frac{\phi(t_k)}{\phi'(t_k)}.  
+\]
+
+This scheme can be naturally extended to the problem of finding a solution to a system of nonlinear equations
+\[
+    \bm{F}(\xB) = 0, ~\xB \in \R^n, ~\bm{F}(\cdot):\R^n \to \R^n.
+\]
+In this case, the scheme is as follows:
+\[
+    \xB_{k+1} = \xB_k - [\bm{F}'(\xB_k)]^{-1}\bm{F}(\xB_k).  
+\]
+
+Finally, in view of Theorem.~\ref{thm:1st_order_optimal}, we can replace th unconstrained minimization problem \ref{eq:grad-problem} by the problem of \emph{finding a root of the
+nonlinear system}
+\[
+    \grad f(\xB) = 0.  
+\]
+This replacement is not completely equivalent, but it works in \emph{nondegenerate} situations. 
+In this case, the Newton system is as follows:
+\[
+    \grad f(\xB) + \hess f(\xB) \Delta \xB = 0.  
+\]
+Hence, the Newton's Method for optimization problems can be written in the following form:
+\[
+    \xB_{k+1} = \xB_{k} - \left[\hess f(\xB_k)\right]^{-1} \grad f(\xB_k). 
+\]
+
+\begin{boxnote}{Newton's Method from Quadratic Approximation}
+    Consider the approximation
+    \[
+        \phi(\xB) = f(\xB_k) + \innerprod{\grad f(\xB_k)}{\xB - \xB_k} + \frac{1}{2} \innerprod{\hess f(\xB_k)(\xB - \xB_k)}{\xB - \xB_k}.
+    \]
+    Assume that \(\hess f(\xB_k) \succ 0\). Then we can choose \(\xB_{k+1}\) as the minimizer of the quadratic function \(\phi(\cdot)\), This means that
+    \[
+        \grad \phi(\xB_{k+1}) = \grad f(\xB_k) + \hess f(\xB_k) (\xB_{k+1} - \xB_k) = 0,  
+    \]
+    and we come again to Newton's process.
+\end{boxnote}
+
+The convergence of the Newton's Method in a neighborhood of a strict local minimum is very fast. Nevertheless, this method has two serious drawbacks:
+\begin{enumerate}
+    \item It can break down if \(\hess f(\xB_k)\) is degenerate.
+    \item Newton's process can diverge.
+\end{enumerate}
+
+\begin{example}
+    Consider following univariate function
+    \[
+        \phi(t) = \frac{t}{\sqrt{1 + t^2}}.  
+    \]
+    Clearly, \(t^* = 0\). Note that 
+    \[
+        \phi'(t) = \frac{1}{(1 + t^2)^{3/2}}.  
+    \]
+    Therefore Newton's process is as follows:
+    \[
+        t_{k+1} = t_k - \frac{\phi(t_k)}{\phi'(t_k)} = t_k - \frac{t_k}{\sqrt{1 + t_k^2}} \cdot [1 + t_k^2]^{3/2} = -t_k^3. 
+    \]
+    Thus, if \(\abs{t_0} < 1\), then this method converges and the convergence is extremely fast. The points \(\pm 1\) are oscillation points of this scheme.
+    If \(\abs{t}_0 > 1\), then this method diverges.
+\end{example}
+
+In order to avoid a possible diverge, in practice we can apply the \emph{damped Newton's method}:
+\[
+    \xB_{k+1} = \xB_k - h_k [\hess f(\xB_k)]^{-1} \grad f(\xB_k),  
+\]
+where \(h_k > 0\) is a step size parameter. At the initial stage of the method we can use the same step size strategies as for the gradient scheme. At the final stage, 
+it is reasonable to choose \(h_k = 1\). Another possibility for ensuring the global convergence of the scheme consists in using \emph{Cubic Regularization}, This approach will
+be studied in the later chapters.
+
+\begin{thm}
+    Let the function \(f(\cdot)\) satisfy our assumptions. Suppose that the initial starting point \(\xB_0\) is close enough to \(\xB^*\):
+    \[
+        \norm{\xB_0 - \xB^*} \le \bar{r} = \frac{2\mu}{3M}.   
+    \]
+    Then \(\norm{\xB_0 - \xB^*} \le \bar{r}\) for all \(k\) and the Newton's Method converges quadratically:
+    \[
+        \norm{\xB_{k+1} - \xB^*} \le \frac{M \norm{\xB_k - \xB^*}}{2(\mu - M\norm{\xB_k -\xB^*})}.  
+    \]
+\end{thm}
+
+\begin{enumerate}
+    \item \textbf{Sublinear rate}
+    \item \textbf{Linear rate}
+    \item \textbf{Quadratic rate}
+\end{enumerate}

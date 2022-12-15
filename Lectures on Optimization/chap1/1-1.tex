@@ -1,16 +1,16 @@
 \section{The World of Nonlinear Optimization}\label{sec:the_world_of_nonlinear_optimization}
 
 \subsection{General Formulation of the Problem}\label{subsec:general_formulation_of_the_problem}
-Let \(\bm{x}\) be an \(n\)-dimensional \emph{real vector}
+Let \(\xB\) be an \(n\)-dimensional \emph{real vector}
 \[
-    \bm{x} = \left( x^{(1)}, \dots, x^{(n)} \right)^\top \in \R^n
+    \xB = \left( x^{(1)}, \dots, x^{(n)} \right)^\top \in \R^n
 \]
 and \(f_0(\cdot), \dots, f_m(\cdot)\) be some \emph{real-valued} functions defined on a set \(Q \subset \R^n\). In this way, let's consider the general minimization problem:
 \begin{equation}\label{eq:general_min_problem}
     \begin{aligned}
-        &\min ~ f_0(\bm{x}), \\
-        &\text{s.t.}~f_j(\bm{x}) ~ \& ~ 0, \quad j = 1, \dots, m,\\
-        &\bm{x} \in Q,
+        &\min ~ f_0(\xB), \\
+        &\text{s.t.}~f_j(\xB) ~ \& ~ 0, \quad j = 1, \dots, m,\\
+        &\xB \in Q,
     \end{aligned}
 \end{equation}
 where the sign \(\&\) can be \(\le\), \(\ge\) or \(=\).
@@ -18,9 +18,9 @@ where the sign \(\&\) can be \(\le\), \(\ge\) or \(=\).
 \begin{note}{Notations}
     \begin{itemize}
         \item \(f_0\) is called \emph{objective} function.
-        \item The vector function \(\bm{f}(\bm{x}) = \left( f_1(\bm{x}), \dots, f_m(\bm{x})^\top \right)\) is called the vector of \emph{functional constraints}.
+        \item The vector function \(\bm{f}(\xB) = \left( f_1(\xB), \dots, f_m(\xB)^\top \right)\) is called the vector of \emph{functional constraints}.
         \item The set \(Q\) is called the \emph{basic feasible set}.
-        \item The set \( \mathscr{F} = \{ x \in Q \mid f_j(\bm{x}), ~j=1, \dots, m \}\) is called \emph{the entire feasible set} of problem~\ref{eq:general_min_problem}. 
+        \item The set \( \mathscr{F} = \{ x \in Q \mid f_j(\xB), ~j=1, \dots, m \}\) is called \emph{the entire feasible set} of problem~\ref{eq:general_min_problem}. 
     \end{itemize}
 \end{note}
 
@@ -34,7 +34,7 @@ where the sign \(\&\) can be \(\le\), \(\ge\) or \(=\).
                 \item \emph{Nonsmooth problems}: there are several nondifferentiable components \(f_k(\cdot)\).
                 \item \emph{Linearly constrained problems}: the functional constraints are affine:
                     \[
-                            f_j(x) = \langle \bm{a}_j, \bm{x} \rangle + b_j
+                            f_j(x) = \langle \bm{a}_j, \xB \rangle + b_j
                     \]
                     \begin{itemize}
                         \item \emph{Linear optimization Problem}: \(f_0(\cdot)\) is also affine.
@@ -45,29 +45,29 @@ where the sign \(\&\) can be \(\le\), \(\ge\) or \(=\).
         \item \textbf{Based on the Feasible Set}:
             \begin{itemize}
                 \item Problem~\ref{eq:general_min_problem} is called \emph{feasible} if \(\mathscr{F} \ne \emptyset\).
-                \item Problem~\ref{eq:general_min_problem} is called \emph{strictly} feasible if there exists an \(\bm{x} \in Q\) such that \(f_j(\bm{x}) < 0\) for all inequality constraints and \(f_j(\bm{x}) = 0\) for all equality constraints. (\textit{Slater condition}.)
+                \item Problem~\ref{eq:general_min_problem} is called \emph{strictly} feasible if there exists an \(\xB \in Q\) such that \(f_j(\xB) < 0\) for all inequality constraints and \(f_j(\xB) = 0\) for all equality constraints. (\textit{Slater condition}.)
             \end{itemize}
         \item \textbf{Based on Solution}:
             \begin{itemize}
-                \item A point \(\bm{x}^* \in \mathscr{F}\) is called the optimal \emph{global solution} to problem~\ref{eq:general_min_problem} if \(f_0(\bm{x}^*) \le f_0(\bm{x})\) for all \(\bm{x} \in \mathscr{F}\) (\textit{global minimum}). \(f_0(\bm{x}^*)\) is called the global \emph{optimal value} of the problem.
-                \item A point \(\bm{x}^* \in \mathscr{F}\) is called a \emph{local solution} to problem~\ref{eq:general_min_problem} if there exists a set \(\hat{\mathscr{F}} \subset \mathscr{F}\) such that \(\forall \bm{x} \in \mathrm{int}\hat{\mathscr{F}}, ~f_0(\bm{x}^*) \le f_0(\bm{x})\). If \(\forall \bm{x} \in \hat{\mathscr{F}} \setminus \{\bm{{x}^*}\}, ~f_0(\bm{x}^*) \le f_0(\bm{x})\), then \(\bm{x}^*\) is called \emph{strict} (or \emph{isolated}) local minimum.
+                \item A point \(\xB^* \in \mathscr{F}\) is called the optimal \emph{global solution} to problem~\ref{eq:general_min_problem} if \(f_0(\xB^*) \le f_0(\xB)\) for all \(\xB \in \mathscr{F}\) (\textit{global minimum}). \(f_0(\xB^*)\) is called the global \emph{optimal value} of the problem.
+                \item A point \(\xB^* \in \mathscr{F}\) is called a \emph{local solution} to problem~\ref{eq:general_min_problem} if there exists a set \(\hat{\mathscr{F}} \subset \mathscr{F}\) such that \(\forall \xB \in \mathrm{int}\hat{\mathscr{F}}, ~f_0(\xB^*) \le f_0(\xB)\). If \(\forall \xB \in \hat{\mathscr{F}} \setminus \{\bm{{x}^*}\}, ~f_0(\xB^*) \le f_0(\xB)\), then \(\xB^*\) is called \emph{strict} (or \emph{isolated}) local minimum.
             \end{itemize}
     \end{enumerate}
 \end{note}
 
 Nonlinear Optimization is very import and promising application theory. It covers almost ALL needs of Operation Research and Numerical Analysis. However, in general, optimization problems should be UNSOLVABLE. It is difficult to believe in the existence of a universal tool which is able to solve all problems in the world.
 
-\begin{boxnote}{Summerization}
-    \begin{itemize}
-        \item First we learn the general formulation of optimization problem in~\ref{eq:general_min_problem} and related concepts.
-        \item We can also classify the optimization problems into different categories. The classification methods include:
-              \begin{itemize}
-                \item Natural Classification.
-                \item Based on Feasible Set.
-                \item Based on Solution.
-              \end{itemize} 
-    \end{itemize}
-\end{boxnote}
+% \begin{boxnote}{Summerization}
+%     \begin{itemize}
+%         \item First we learn the general formulation of optimization problem in~\ref{eq:general_min_problem} and related concepts.
+%         \item We can also classify the optimization problems into different categories. The classification methods include:
+%               \begin{itemize}
+%                 \item Natural Classification.
+%                 \item Based on Feasible Set.
+%                 \item Based on Solution.
+%               \end{itemize} 
+%     \end{itemize}
+% \end{boxnote}
 
 \subsection{Performance of Numerical Methods}\label{subsec:performance_of_numerical_performance}
 Usually we focus on the best method for a \emph{class} of problem \(\mathscr{P} \ni P\). The \emph{performance} of a method, \(\mathscr{M}\) on the whole class \(\mathscr{P}\) can be a natural measure of its efficiency. Here we assume that the method \(\mathscr{M}\) does not have \emph{complete} information about a particular problem \(P\).
@@ -103,13 +103,13 @@ Now we have a formal description of the problem class:
 In order to solve a problem \(P\) from \(\mathscr{P}\), we apply it to an \emph{iterative process}.
 \begin{algorithm}[!htbp]
     \caption{General Iterative Scheme}\label{alg:general_iterative}
-    \KwIn{Starting point \(x_0\) and accuracy \(\epsilon > 0\).}
-    \KwOut{Solution \(\bar{x}\).}
+    \KwIn{Starting point \(\xB_0\) and accuracy \(\epsilon > 0\).}
+    \KwOut{Solution \(\bar{\xB}\).}
     \textbf{Initialization}: Set \(k = 0\), \(\mathscr{I}_{-1} = \emptyset\). Here \(k\) is the iteration counter and \(\mathscr{I}_k\) is the accumulated \emph{informational set}.\\
     \While{True}{
-        Call oracle \(\mathcal{O}\) at point \(\bm{x}_k\). \\
-        Update the informational set: \(\mathscr{I}_k = \mathscr{I}_{k-1} \cup (\bm{x}_k, \mathcal{O}(x_k))\). \\
-        Apply the rules of method \(\mathscr{M}\) to \(\mathscr{I}_k\) and generate a new point \(\bm{x}_{k+1}\). \\
+        Call oracle \(\mathcal{O}\) at point \(\xB_k\). \\
+        Update the informational set: \(\mathscr{I}_k = \mathscr{I}_{k-1} \cup (\xB_k, \mathcal{O}(\xB_k))\). \\
+        Apply the rules of method \(\mathscr{M}\) to \(\mathscr{I}_k\) and generate a new point \(\xB_{k+1}\). \\
         \eIf{\(\mathscr{I}_\epsilon\)}{
             Form output \(\solution\).
         }{
@@ -145,45 +145,45 @@ we can find that when problems have a complicated or implicit structure, this ac
 
 Here we conclude problem~\ref{eq:general_min_problem} as a \emph{functional model} of optimization problem. According to the degree of smoothness, we can apply different types of oracle:
 \begin{itemize}
-    \item Zero-order Oracle: returns the function value \(f(\bm{x})\).
-    \item First-order Oracle: returns the function value \(f(\bm{x})\) and the gradient \(\grad f(\bm{x})\).
-    \item Second-order Oracle: returns \(f(\bm{x})\), \(\grad f(\bm{x})\), and the Hessian \(\grad^2 f(\bm{x})\)
+    \item Zero-order Oracle: returns the function value \(f(\xB)\).
+    \item First-order Oracle: returns the function value \(f(\xB)\) and the gradient \(\grad f(\xB)\).
+    \item Second-order Oracle: returns \(f(\xB)\), \(\grad f(\xB)\), and the Hessian \(\grad^2 f(\xB)\)
 \end{itemize}
 
-\begin{boxnote}{Summerization}
-    \begin{itemize}
-        \item Usually we focus on the performance of method \(\mathscr{M}\) on a problem class \(\mathscr{P}\), rather than a particular problem. There are also 2 import concepts about problem: \emph{model} and \emph{oracle}.
-        \item The performance of method \(\mathscr{M}\) on a problem class \(\mathscr{P}\) is defined as the total amount computational effort required by the method \(\mathscr{M}\) to solve the problem \(P\), just as Definition~\ref{defn:performance}.
-              \begin{itemize}
-                \item Computational complexity: \emph{Analytical} and \emph{Arithmetical}, just as Definition~\ref{defn:complexity}.
-                \item Solving the problem: finding an \emph{approximate solution} with accuracy \(\epsilon > 0\).
-              \end{itemize}
-        \item We can use \emph{General Iterative Scheme} in Algorithm~\ref{alg:general_iterative} to deal with most of optimization problems.
-        \item Standard assumption on oracle: \emph{Local Black Box Assumption} in Assumption~\ref{assum:local_black_box}.
-    \end{itemize}
-\end{boxnote}
+% \begin{boxnote}{Summerization}
+%     \begin{itemize}
+%         \item Usually we focus on the performance of method \(\mathscr{M}\) on a problem class \(\mathscr{P}\), rather than a particular problem. There are also 2 import concepts about problem: \emph{model} and \emph{oracle}.
+%         \item The performance of method \(\mathscr{M}\) on a problem class \(\mathscr{P}\) is defined as the total amount computational effort required by the method \(\mathscr{M}\) to solve the problem \(P\), just as Definition~\ref{defn:performance}.
+%               \begin{itemize}
+%                 \item Computational complexity: \emph{Analytical} and \emph{Arithmetical}, just as Definition~\ref{defn:complexity}.
+%                 \item Solving the problem: finding an \emph{approximate solution} with accuracy \(\epsilon > 0\).
+%               \end{itemize}
+%         \item We can use \emph{General Iterative Scheme} in Algorithm~\ref{alg:general_iterative} to deal with most of optimization problems.
+%         \item Standard assumption on oracle: \emph{Local Black Box Assumption} in Assumption~\ref{assum:local_black_box}.
+%     \end{itemize}
+% \end{boxnote}
 
 \subsection{Complexity Bounds for Global Optimization}\label{subsec:Complexity_Bounds_for_Global_Optimization}
 
 Let's consider \emph{\(n\)-dimensional box problem}:
 \begin{equation}\label{eq:n_dimensional_box}
     \begin{aligned}
-        & \min_{x \in B_n} ~ f(\bm{x}) \\
-        & B_n = \{ \bm{x} \in \R^n \mid 0 \le {x}^{(i)} \le 1, ~ i = 1, \dots, n \}
+        & \min_{x \in B_n} ~ f(\xB) \\
+        & B_n = \{ \xB \in \R^n \mid 0 \le {x}^{(i)} \le 1, ~ i = 1, \dots, n \}
     \end{aligned}
 \end{equation}
 In our terminology, this is a constrained minimization problem without functional constraints. \(B_n\) is the basic feasible set, which can be seemed as a \(n\)-dimensional box.
 
 Here we use \(l_\infty\)-norm to measure distances:
 \[
-    \norminf{\bm{x}} = \max_{1 \le i \le n} \abs{x^{(i)}}  
+    \norminf{\xB} = \max_{1 \le i \le n} \abs{x^{(i)}}  
 \]
 
 Then we make the assumption:
 \begin{assum}\label{assum:lipschitz_objective_func}
     the objective function \(f(\cdot): \R^n \to \R\) is \emph{Lipschitz continuous} on \(B_n\):
     \[
-        \abs{f(\bm{x} - \bm{y})} \le L \norminf{\bm{x} - \bm{y}} \quad \forall \bm{x},\bm{y} \in B_n,
+        \abs{f(\xB - \bm{y})} \le L \norminf{\xB - \bm{y}} \quad \forall \xB,\bm{y} \in B_n,
     \]
     with some constant L (\emph{Lipschitz constant}).
 \end{assum}
@@ -196,11 +196,11 @@ which is called \emph{Uniform Grid Method} \(\mathscr{G}(p)\).
     \KwOut{The minimal pair \((\solution, f(\solution))\).}
     Form \(p^n\) points
     \[
-        \bm{x}_\alpha = \left( \frac{2i_1 - 1}{2p}, \frac{2i_2 - 1}{2p}, \dots, \frac{2i_n - 1}{2p} \right)^\top.  
+        \xB_\alpha = \left( \frac{2i_1 - 1}{2p}, \frac{2i_2 - 1}{2p}, \dots, \frac{2i_n - 1}{2p} \right)^\top.  
     \]
     where \(\alpha \equiv (i_1, \dots, i_n) \in \{1, \dots, p\}^n\).
     
-    Among all points \(\bm{x}_\alpha\), find the point \(\solution\) with the minimal value of the objective function.
+    Among all points \(\xB_\alpha\), find the point \(\solution\) with the minimal value of the objective function.
 \end{algorithm}
 
 Thus, this method forms a uniform grid of the test points in the \(n\)-dimensional box, 
@@ -219,22 +219,22 @@ on the sequence of test points. Then let's focus on its efficiency estimate.
 \begin{proof}[of Theorem~\ref{thm:grid_err1}]
     For a multi-index \(\alpha = (i_1, \dots, i_n)\), define
     \[
-        X_\alpha = \left\{ \bm{x} \in \R^n \arrowvert \norminf{\bm{x} - \bm{x}_\alpha} \le \frac{1}{2p} \right\}
+        X_\alpha = \left\{ \xB \in \R^n \arrowvert \norminf{\xB - \xB_\alpha} \le \frac{1}{2p} \right\}
     \]
 
     Obviously, \(\bigcup_{\alpha \in \{1, \dots, p\}^n} X_\alpha = B_n\).
 
-    Let \(\bm{x}^*\) be a global solution of our problem. Then there exists a multi-index \(\alpha^*\) 
-    such that \(\bm{x}^* \in X_{\alpha^*}\). Note that \(\norminf{\bm{x}^* - \bm{x}_{\alpha^*}} \le 1/2p\). 
+    Let \(\xB^*\) be a global solution of our problem. Then there exists a multi-index \(\alpha^*\) 
+    such that \(\xB^* \in X_{\alpha^*}\). Note that \(\norminf{\xB^* - \xB_{\alpha^*}} \le 1/2p\). 
     Therefore,
     \[
-        f(\solution) - f(\bm{x}^*) \le f(\bm{x}_{\alpha^*}) - f(\bm{x}^*) \le \frac{L}{2p}
+        f(\solution) - f(\xB^*) \le f(\xB_{\alpha^*}) - f(\xB^*) \le \frac{L}{2p}
     \]
 \end{proof}
 
 Let us conclude with the definition of our problem class. We fix our goal as follows:
 \begin{equation}\label{eq:goal_n_box}
-    \text{Find} ~ \solution \in B_n : \quad f(\solution) - f(\bm{x}^*) \le \epsilon
+    \text{Find} ~ \solution \in B_n : \quad f(\solution) - f(\xB^*) \le \epsilon
 \end{equation}
 
 \begin{coro}\label{coro:upper_complexity_of_grid}
@@ -248,7 +248,7 @@ Let us conclude with the definition of our problem class. We fix our goal as fol
 
 \begin{proof}[of Corollary~\ref{coro:upper_complexity_of_grid}]
     Take \(p = \left\lfloor \frac{L}{2\epsilon} \right\rfloor +1\). Then \(p \ge \frac{L}{2\epsilon}\), and, in view of Theorem~\ref{thm:grid_err1}, 
-    we have \(f(\solution) - f(\bm{x}^*) \le \frac{L}{2p} \le \epsilon\). Note that we need to call the oracle at \(p^n\) points.
+    we have \(f(\solution) - f(\xB^*) \le \frac{L}{2p} \le \epsilon\). Note that we need to call the oracle at \(p^n\) points.
 \end{proof}
 
 Thus, \(\mathscr{A}(\mathscr{G})\) justifies an \emph{upper} complexity bound for our problem class.
@@ -265,7 +265,7 @@ In order to answer these questions, we need to derive the \emph{lower} complexit
     \item Very often such bounds employ the idea of a \emph{resisting oracle}.
 \end{itemize}
 
-\begin{colorboxnote}{Resisting Oracle}
+\begin{boxnote}{Resisting Oracle}
     A \emph{resisting oracle} tries to create the \emph{worst possible} problem for each particular method.
     \begin{itemize}
         \item It starts from an "empty" function and it tries to answer each call of the method in the worst way.
@@ -273,20 +273,20 @@ In order to answer these questions, we need to derive the \emph{lower} complexit
         \item After termination of the method, it is possible to \emph{reconstruct} a problem which perfectly fits the final informational set accumulated by the algorithm.
         \item If we run the method on this newborn problem, it will reproduce the same sequence of test points since it will have the same sequence of answers from the oracle.
     \end{itemize}
-\end{colorboxnote}
+\end{boxnote}
 
 \begin{example}
     Let's consider gradient descent on a Lipschitz-smooth, convex function \(f\) (a convex function whose gradient is Lipschitz-continuous). Gradient descent generates a sequence 
-    of points \(\{\bm{x}_k\}_{k \in \N}\) which satisfies
+    of points \(\{\xB_k\}_{k \in \N}\) which satisfies
     \[
-        \bm{x}_{k+1} := \bm{x}_{k} - \gamma \grad f(\bm{x}_{k}).
+        \xB_{k+1} := \xB_{k} - \gamma \grad f(\xB_{k}).
     \]
 
-    Now we are interested in the worst case analysis. We would like to find the "worst" sequence \(\{\bm{x}_k\}_{k \in \N}\}\) we could probably get given by gradient descent.
-    But under the assumption that \(f\) is convex and Lipschitz-smooth, the resisting oracle here would give you "bad" values of \(\grad f(\bm{x}_k)\), which lead to slow convergence but
-    are still "possible" in the sense that they are values for which we can construct a convex Lipschitz-smooth function whose gradient evaluated at \(\bm{x}_k\) gives the right values.
+    Now we are interested in the worst case analysis. We would like to find the "worst" sequence \(\{\xB_k\}_{k \in \N}\}\) we could probably get given by gradient descent.
+    But under the assumption that \(f\) is convex and Lipschitz-smooth, the resisting oracle here would give you "bad" values of \(\grad f(\xB_k)\), which lead to slow convergence but
+    are still "possible" in the sense that they are values for which we can construct a convex Lipschitz-smooth function whose gradient evaluated at \(\xB_k\) gives the right values.
 
-    \textbf{Attention}: There is no actual function \(f\) here.  There is only the oracle giving us values when we ask it for \(\grad f(\bm{x}_k)\). The oracle is constructed in such a way 
+    \textbf{Attention}: There is no actual function \(f\) here.  There is only the oracle giving us values when we ask it for \(\grad f(\xB_k)\). The oracle is constructed in such a way 
     that the values it returns could plausibly be the gradient values of some convex Lipschitz smooth function, but there is no fixed function that we start with.
 \end{example}
 
@@ -297,16 +297,16 @@ In order to answer these questions, we need to derive the \emph{lower} complexit
 \begin{proof}[of Theorem~\ref{thm:lower_complexity_of_grid}]
     Let \(p = \left\lfloor \frac{L}{2\epsilon} \right\rfloor~(\ge 1)\). Assume that there exists a method which needs \(N < p^n\) calls of oracle to solve any problem. Let us apply this method to the following resisting oracle:
     \[
-        \text{Return} ~ f(\bm{x}) = 0 ~ \text{at any test point} ~  \bm{x}.
+        \text{Return} ~ f(\xB) = 0 ~ \text{at any test point} ~  \xB.
     \]
     Therefore this method can find only \(\solution \in B_n\) with \(f(\solution) = 0\).
 
-    However, since \(N < p^n\), there exists a multi index \(\hat{\alpha}\) such that there were no test points in the box \(X_{\hat{\alpha}}\). Define \(\bm{x}_* = \bm{x}_{\hat{\alpha}}\), and consider the function
+    However, since \(N < p^n\), there exists a multi index \(\hat{\alpha}\) such that there were no test points in the box \(X_{\hat{\alpha}}\). Define \(\xB_* = \xB_{\hat{\alpha}}\), and consider the function
     \[
-        \bar{f}(\bm{x}) = \min \{ 0, L\norminf{\bm{x} - \bm{x}_*} - \epsilon \}.  
+        \bar{f}(\xB) = \min \{ 0, L\norminf{\xB - \xB_*} - \epsilon \}.  
     \]
     Clearly, this function is \(l_\infty\)-Lipschitz continuous with constant \(L\), and its global optimal value is \(-\epsilon\).
-    Moreover, \(\forall \bm{x} \notin X_{\hat{\alpha}},~\bar{f}(\bm{x}) \ne 0\). Thus, \(\bar{f}(\cdot)\) is equal to zero \emph{at all test points} of our 
+    Moreover, \(\forall \xB \notin X_{\hat{\alpha}},~\bar{f}(\xB) \ne 0\). Thus, \(\bar{f}(\cdot)\) is equal to zero \emph{at all test points} of our 
     method (\emph{since we assume that there is no test points in \(X_{\hat{\alpha}}\).})
 
     Since the accuracy of the output of our method is \(\epsilon\), we come to the following conclusion: \textbf{If the number of calls of the oracle is less than \(p^n\), then the accuracy of the result cannot be better than \(\epsilon\)}.
@@ -348,7 +348,7 @@ In order to answer these questions, we need to derive the \emph{lower} complexit
 
 Theorem~\ref{thm:lower_complexity_of_grid} supports our initial claim that the general optimization problems are \emph{unsolvable}. Let us look the following example.
 
-\begin{colorboxnote}{Example}
+\begin{example}
     Consider the problem class \(\mathscr{P}_\infty\) defined by the following parameters: \(L = 2\), \(n = 10\), \(\epsilon = 0.01\).
     The lower complexity bound for this class is \(\left\lfloor \frac{L}{2\epsilon} \right\rfloor^n\) calls of oracle. Let us compute this value for our example.
     \begin{itemize}
@@ -360,23 +360,23 @@ Theorem~\ref{thm:lower_complexity_of_grid} supports our initial claim that the g
         \item \textbf{One year}: less than \(3.2\times 10^7\) s
         \item \textbf{We need}: \(31,250,000\) years.
     \end{itemize}
-\end{colorboxnote}
+\end{example}
 
 This estimate is so disappointing that we cannot maintain any hope that such problems may become solvable in the future. The lower complexity bounds for problems 
 with smooth functions, or for high-order methods, are not much better than the bound of Theorem~\ref{thm:lower_complexity_of_grid}.
 
-\begin{boxnote}{Summerization}
-    We aim to find the complexity bounds for global optimization. Here we use the example of \emph{\(n\)-dimensional box problem} just as~\ref{eq:n_dimensional_box}. 
-    \begin{itemize}
-        \item In order to deal with this kind of problems, we propose the \emph{Uniform Grid Method \(\mathscr{G}(p)\)} just as Algorithm~\ref{alg:uniform_grid_method}. 
-              The computational complexity is \(p^n\) at most. So the question is: in order to Let the accuracy get to \(\epsilon > 0\), how should \(p\) be set?
-        \item Here we assume that the objective function \(f(\cdot)\) is \emph{Lipschitz continuous} in Assumption~\ref{assum:lipschitz_objective_func}. Based on the condition of Lipschitz continuous,
-              we can get the relationship between \(f(\solution)\) and \(f^*\) according to Theorem~\ref{thm:grid_err1}: \(f(\solution) - f^* \le \frac{L}{2p}\). 
-        \item So, in order to satisfy \(f(\solution) - f^* \le \frac{L}{2p} \le \epsilon\), we can set \(p =\left\lfloor \frac{L}{2\epsilon} \right\rfloor + 1\). So the upper complexity is 
-              \(\mathscr{A}(\mathscr{G}) = p^n = \left(\left\lfloor \frac{L}{2\epsilon} \right\rfloor + 1\right)^n\) just as Corollary~\ref{coro:upper_complexity_of_grid}.
-        \item Based on \emph{resisting oracle}, we can get the lower complexity bound for Uniform Grid Method \(\mathscr{G}(p)\) is \(\left\lfloor \frac{L}{2\epsilon}^n \right\rfloor\) in Theorem~\ref{thm:lower_complexity_of_grid}.
-    \end{itemize}
-\end{boxnote}
+% \begin{boxnote}{Summerization}
+%     We aim to find the complexity bounds for global optimization. Here we use the example of \emph{\(n\)-dimensional box problem} just as~\ref{eq:n_dimensional_box}. 
+%     \begin{itemize}
+%         \item In order to deal with this kind of problems, we propose the \emph{Uniform Grid Method \(\mathscr{G}(p)\)} just as Algorithm~\ref{alg:uniform_grid_method}. 
+%               The computational complexity is \(p^n\) at most. So the question is: in order to Let the accuracy get to \(\epsilon > 0\), how should \(p\) be set?
+%         \item Here we assume that the objective function \(f(\cdot)\) is \emph{Lipschitz continuous} in Assumption~\ref{assum:lipschitz_objective_func}. Based on the condition of Lipschitz continuous,
+%               we can get the relationship between \(f(\solution)\) and \(f^*\) according to Theorem~\ref{thm:grid_err1}: \(f(\solution) - f^* \le \frac{L}{2p}\). 
+%         \item So, in order to satisfy \(f(\solution) - f^* \le \frac{L}{2p} \le \epsilon\), we can set \(p =\left\lfloor \frac{L}{2\epsilon} \right\rfloor + 1\). So the upper complexity is 
+%               \(\mathscr{A}(\mathscr{G}) = p^n = \left(\left\lfloor \frac{L}{2\epsilon} \right\rfloor + 1\right)^n\) just as Corollary~\ref{coro:upper_complexity_of_grid}.
+%         \item Based on \emph{resisting oracle}, we can get the lower complexity bound for Uniform Grid Method \(\mathscr{G}(p)\) is \(\left\lfloor \frac{L}{2\epsilon}^n \right\rfloor\) in Theorem~\ref{thm:lower_complexity_of_grid}.
+%     \end{itemize}
+% \end{boxnote}
 
 At the end of this section, let us compare our observations with other fields. The uniform grid approach is a standard tool in many domains. Let's consider the numerical integral of a univariate function
 \[
@@ -407,7 +407,7 @@ In fact, each of these questions can be answered in different ways. In the field
 
 These aspects naturally define the list of desired properties of the optimization methods, just as follows.
 
-\begin{colorboxnote}{General Global Optimization}
+\begin{boxnote}{General Global Optimization}
     \begin{itemize}
         \item \textbf{Goals}: Find a global minimum.
         \item \textbf{Functional Class}: Continuous functions.
@@ -416,9 +416,9 @@ These aspects naturally define the list of desired properties of the optimizatio
         \item \textbf{Features}: From theoretical point of view, this game is too short.
         \item \textbf{Problem Sizes}: Sometimes, we can solve problems with many variables. No guarantee of success even for small problems.
     \end{itemize}
-\end{colorboxnote}
+\end{boxnote}
 
-\begin{colorboxnote}{General Nonlinear Optimization}
+\begin{boxnote}{General Nonlinear Optimization}
     \begin{itemize}
         \item \textbf{Goals}: Find a local minimum.
         \item \textbf{Functional Class}: Differentiable functions.
@@ -427,9 +427,9 @@ These aspects naturally define the list of desired properties of the optimizatio
         \item \textbf{Features}: Variability of approaches. Most widespread software. The goals are not always acceptable and reachable.
         \item \textbf{Problem Sizes}: Up to several thousand variables.
     \end{itemize}
-\end{colorboxnote}
+\end{boxnote}
 
-\begin{colorboxnote}{Black Box Convex Optimization}
+\begin{boxnote}{Black Box Convex Optimization}
     \begin{itemize}
         \item \textbf{Goals}: Find a global minimum.
         \item \textbf{Functional Class}: Convex sets and functions.
@@ -438,9 +438,9 @@ These aspects naturally define the list of desired properties of the optimizatio
         \item \textbf{Features}: Very interesting and rich on complexity theory. Efficient practical methods. The problem class is sometimes restrictive.
         \item \textbf{Problem Sizes}: Several thousand variables for the \(2\)-nd order methods, and several million for the \(1\)-st order schemes.
     \end{itemize}
-\end{colorboxnote}
+\end{boxnote}
 
-\begin{colorboxnote}{Structural Optimization}
+\begin{boxnote}{Structural Optimization}
     \begin{itemize}
         \item \textbf{Goals}: Find a global minimum.
         \item \textbf{Functional Class}: Simple convex sets and functions with explicit minmax structure.
@@ -449,5 +449,5 @@ These aspects naturally define the list of desired properties of the optimizatio
         \item \textbf{Features}: Very new and perspective theory rejecting the Black Box concept. The problem class is practically the same as in Convex optimization.
         \item \textbf{Problem Sizes}: Sometimes up to several million variables
     \end{itemize}
-\end{colorboxnote}
+\end{boxnote}
 

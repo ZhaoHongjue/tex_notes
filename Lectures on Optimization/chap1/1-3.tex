@@ -1,0 +1,187 @@
+\section{First-Order Methods in Nonlinear Optimization}\label{sect:1st-order-methods-in-nonlinear-opt}
+\subsection{The Gradient Method and Newton's Method: What is Different?}\label{subsect: grad-newton-diff}
+
+For the optimization problem
+\[
+    \min_{\xB \in \R^n} f(\xB)  
+\]
+with \(f \in C_{M}^{2, 2}(\R^n)\).
+\begin{enumerate}
+    \item \textbf{Gradient Method}: 
+        \begin{itemize}
+            \item \(\xB_{k+1} = \xB - h_k \grad f(\xB_k),~h_k > 0\).
+            \item Local rate of convergence: linear rate.
+            \item The search direction: the \emph{antigradient}.
+        \end{itemize}
+    \item \textbf{Newton Method}: 
+        \begin{itemize}
+            \item \(\xB_{k+1} = \xB_k - [\hess f(\xB_k)]^{-1} \grad f(\xB_k)\).
+            \item Local rate of convergence: Quadratic rate
+            \item The search direction: multiply the antigradient by \emph{inverse Hessian}.
+        \end{itemize}
+\end{enumerate}
+Let us try to derive these directions using some “universal” reasoning.
+
+Fix a point \(\bar{\xB} \in \R^n\) and consider the following approximation of the function \(f(\cdot)\):
+\[
+    \phi_1(\xB) = f(\bar{\xB}) + \innerprod{\grad f(\bar{\xB})}{\xB - \bar{\xB}} + \frac{1}{2h} \norm{\xB - \bar{\xB}}^2, ~h > 0.  
+\]
+According to the first-order condition, we obtain the following equation for \(\xB^*_1\), the unconstrained minimum of this function
+\[
+    \grad \phi_1(\xB^*_1) = \grad f(\bar{\xB}) + \frac{1}{h} (\xB_1^* - \bar{\xB}) = 0.  
+\]
+Thus, \(\xB^*_1 = \bar{\xB} - h\grad f(\bar{\xB})\). According to Lemma.~\ref{lemma:geometric-interpretation-C11L} if \(h \in (0, \frac{1}{L}]\), then the function \(\phi_1\) is a \emph{global upper}
+approximation of \(f(\cdot)\):
+\[
+    f(\xB) \le \phi_1(\xB), \forall \xB \in \R^n.  
+\]
+This fact is responsible for the global convergence of the Gradient Method.
+
+Futher, consider a quadratic approximation of the function \(f(\cdot)\):
+\[
+    \phi_2(\xB) = f(\bar{\xB}) + \innerprod{\grad f(\bar{\xB})}{\xB - \bar{\xB}} + \frac{1}{2}\innerprod{\hess f(\bar{\xB})(\xB - \bar{\xB})}{\xB - \bar{\xB}}.  
+\] 
+We have already seen that the minimum of this function is
+\[
+    \xB^*_2 = \bar{\xB} - [\hess f(\bar{\xB})]^{-1}\grad f(\bar{\xB}),  
+\]
+and this is exactly the iterate of the Newton's Method.
+
+Therefore, we try to use some quadratic approximations of function \(f(\cdot)\), which are better than \(\phi_1\) and which are less expensive than \(\phi_2\).
+
+Let \(G\) be a symmetric positive definite \(n \times n\)-matrix. Define 
+\[
+    \phi_G(\xB) = f(\bar{\xB}) + \innerprod{\grad f(\bar{\xB})}{\xB - \bar{\xB}} + \frac{1}{2} \innerprod{\bm{G}(\xB - \bar{\xB})}{\xB - \bar{\xB}}. 
+\]
+Computing the minimizer of \(\phi_G(\cdot)\) from the equation
+\[
+    \grad \phi_G(\xB_G^*) = \grad f(\bar{\xB}) + \bm{G}(\xB_G^* - \bar{\xB}) = 0.  
+\] 
+we obtain
+\begin{equation}\label{eq:quasi-Newton}
+    \xB_G^* = \bar{\xB} - \bm{G}^{-1} \grad f(\bar{\xB}).  
+\end{equation}
+
+\begin{defn}[Variable Metric Methods]
+    The first-order methods, which form a sequence of matrices
+    \[
+        \{\bm{G}_k\}:~\bm{G}_k \to \hess f(\xB^*) ~\text{or}~ \{\bm{H}_k\} \equiv \bm{G}_k^{-1} \to \hess f(\xB^*)
+    \]
+    are called \emph{variable metric} methods or \emph{quasi-Newton} methods.
+\end{defn}
+In these methods, only the gradients are involved in the process of generating the sequences \(\{\bm{G}_k\}\) or \(\{\bm{H}_k\}\).
+Let us provide updating rule \ref{eq:quasi-Newton} one more interpretation.
+
+Consider a symmetric positive definite \(n \times n\)-matrix \(\bm{A}\). For \(\xB, \yB \in \R^n\) define 
+\[
+    \innerprod{\xB}{\yB}_{\bm{A}} = \innerprod{\bm{Ax}}{\yB}, \quad \norm{\xB}_{\bm{A}} = \innerprod{\bm{Ax}}{\xB}^{1/2}.  
+\]
+This function \(\norm{\cdot}_{\bm{A}}\) is treated as a new norm on \(\R^n\). Note that the topologically this new norm is equivalent to the 
+old one
+\[
+    \lambda_{\min} (\bm{A})^{1/2}\norm{\xB} \le \norm{\xB}_{\bm{A}} \le  \lambda_{\max} (\bm{A})^{1/2}\norm{\xB},
+\]
+where \(\lambda_{\min}(\bm{A})\) and \(\lambda_{\max}(\bm{A})\) are the smallest and largest eigenvalues of the matrix \(\bm{A}\). Therefore we can obtain
+\[
+    \begin{aligned}
+        f(\xB + \hB) &= f(\xB) + \innerprod{\grad f(\xB)}{\hB} + \frac{1}{2} \innerprod{\hess f(\xB) \hB}{\hB} + o(\norm{\hB}) \\
+        &= f(\xB) + \innerprod{\bm{A}^{-1}\grad f(\xB)}{\hB}_{\bm{A}} + \frac{1}{2} \innerprod{\bm{A}^{-1} \hess f(\xB) \hB}{\hB}_{\bm{A}} + o(\norm{\hB}_{\bm{A}})
+    \end{aligned}  
+\]
+Hence, \(\grad f_{\bm{A}}(\xB) = \bm{A}^{-1} \grad f(\xB)\) is the new gradient and \(\hess f_{\bm{A}}(\xB) = \bm{A}^{-1} \hess f(\xB)\) is the new Hessian.
+\begin{algorithm}[!htbp]
+    \caption{Variable Metric Method}\label{alg:variable-metric}
+    \KwIn{Starting point \(\xB_0\) and accuracy \(\epsilon > 0\).}
+    \KwOut{Local minimum \(\xB^*\) and \(f(\xB^*)\).}
+    \textbf{Initialization}: Set \(\bm{H}_0 = \bm{I}_n\) and \(k = 0\). Compute \(f(\xB_0)\) and \(\grad f(\xB_0)\). \\
+    \While{not (\(\norm{\grad f(\xB_k)} \le \epsilon\) or \(\norm{\xB_{k+1} - \xB_k} \le \epsilon\) or \(\norm{f(\xB_{k+1}) - f(\xB_k)} \le \epsilon\))}{
+        Set \(\pB = \bm{H}_k \grad f(\xB_k)\). \\
+        Find \(\xB_{k+1} = \xB_k - h_k \pB_k\). \\
+        Compute \(f(\xB_{k+1})\) and \(\grad f(\xB_{k+1})\). \\
+        Update the matrix \(\bm{H}_k\) to \(\bm{H}_{k+1}\).
+    }
+\end{algorithm}
+
+\begin{boxnote}{Quasi-Newton Method}
+    Choose \(\bm{H}_{k+1} = \bm{H}_{k+1}^\top \succ 0\) such that
+    \[
+        \bm{H}_{k+1}(\grad f(\xB_{k+1}) - \grad f(\xB_k)) = \xB_{k+1} - \xB_k.
+    \] 
+\end{boxnote}
+
+Define
+\[
+    \Delta \bm{H}_k = \bm{H}_{k+1} - \bm{H}_k, \quad, \bm{\gamma}_k = \grad f(\xB_{k+1}) - \grad f(\xB_k), \quad \bm{\delta}_k = \xB_{k+1} - \xB_k.  
+\]
+Then the quasi-Newton relation is satisfied by the following updating rules.
+\begin{enumerate}
+    \item {Rank-one correction scheme}:
+        \[
+            \Delta \bm{H}_k = \frac{(\bm{\delta}_k - \bm{H}_k\bm{\gamma}_k)(\bm{\delta}_k - \bm{H}_k\bm{\gamma}_k)^\top}{\innerprod{\bm{\delta}_k - \bm{H}_k\bm{\gamma}_k}{\bm{\gamma}_k}}  
+        \]
+    \item {Davidon–Fletcher–Powell scheme (DFP)}:
+        \[
+            \Delta \bm{H}_k = \frac{\bm{\delta}_k\bm{\delta}_k^\top}{\innerprod{\bm{\gamma}_k}{\bm{\delta}_k}} 
+            - \frac{\bm{H}_k\bm{\gamma}_k\bm{\gamma}_k^\top\bm{H}_k}{\innerprod{\bm{H}_k\bm{\gamma}_k}{\bm{\gamma}_k}}
+        \]
+    \item {Broyden–Fletcher–Goldfarb–Shanno scheme (BFGS)}:
+        \[
+            \Delta \bm{H}_k = \beta_k \frac{\bm{\delta}_k\bm{\delta}_k^\top}{\innerprod{\bm{\gamma}_k}{\bm{\delta}_k}} 
+            - \frac{\bm{H}_k\bm{\gamma}_k\bm{\delta}_k^\top + \bm{\delta}_k\bm{\gamma}_k^\top\bm{H}_k}{\innerprod{\bm{H}_k\bm{\gamma}_k}{\bm{\gamma}_k}}
+        \]
+        where \(\beta_k = 1 + \innerprod{\bm{H}_k\bm{\gamma}_k}{\bm{\gamma}_k, \bm{\delta}_k}\)
+\end{enumerate}
+From the computational point of view, BFGS is considered to be the most stable scheme.
+
+For variable metric methods, in a neighborhood of a strict local minimum \(\xB^*\) they demonstrate a \emph{superlinear} rate of convergence:
+for any \(\xB^0 \in \R^n\) close enough to \(\xB^*\) there exists a number \(N\) such that for all \(k \ge N\) we have
+\[
+    \norm{\xB_{k+1} - \xB^*} \le \text{const} \cdot \norm{\xB_k - \xB^*} \cdot \norm{\xB_{k-n} - \xB^*}.  
+\]
+As far as the worst-case global convergence is concerned, these methods are not better than the Gradient Method.
+
+In the variable metric schemes it is necessary to store and update a symmetric \(n \times n\)-matrix. Thus, each iteration needs \(O(n^2)\) auxiliary arithmetic operations.
+This feature is considered as one of the main drawbacks of the variable metric
+methods.
+
+\subsection{Conjugate Gradients}\label{subsect:conj-grad}
+Consider the problem
+\begin{equation}\label{eq:problem-conj-grad}
+    \min_{\xB \in \R^n} f(\xB)
+\end{equation}
+with \(f(\xB) = \alpha + \innerprod{\aB}{\xB} + \frac{1}{2}\innerprod{\bm{Ax}}{\xB}\) and \(\bm{A} = \bm{A}^\top \succ 0\). The solution of this problem is \(\xB^* = - \bm{A}^{-1}\aB\).
+Therefore, our objective function can be written in the following form:
+\[
+    \begin{aligned}
+        f(\xB) &= \alpha + \innerprod{\aB}{\xB} + \frac{1}{2} \innerprod{\bm{Ax}}{\xB} = \alpha - \innerprod{\bm{Ax}^*}{\xB} + \frac{1}{2} \innerprod{\bm{Ax}}{\xB} \\
+        &= \alpha - \frac{1}{2} \innerprod{\bm{Ax}^*}{\xB^*} + \frac{1}{2} \innerprod{\bm{A}(\xB - \xB^*)}{\xB - \xB^*}
+    \end{aligned}  
+\]
+Thus, \(f^* = \alpha - \frac{1}{2} \innerprod{\bm{Ax}^*}{\xB^*}\) and \(\grad f(\xB) = \bm{A}(\xB - \xB^*)\).
+
+\begin{algorithm}[!htbp]
+    \caption{Conjugate Gradient Method}\label{alg:conj-grad}
+    \KwIn{Starting point \(\xB_0\) and accuracy \(\epsilon > 0\).}
+    \KwOut{Local minimum \(\xB^*\) and \(f(\xB^*)\).}
+    \textbf{Initialization}: Set \(k = 0\). Compute \(f(\xB_0)\) and \(\grad f(\xB_0)\). Set \(\pB_0 = \grad f(\xB_0)\). \\
+    \While{not (\(\norm{\grad f(\xB_k)} \le \epsilon\) or \(\norm{\xB_{k+1} - \xB_k} \le \epsilon\) or \(\norm{f(\xB_{k+1}) - f(\xB_k)} \le \epsilon\))}{
+        Find \(\xB_{k+1} = \xB_k - h_k \pB_k\). \\
+        Compute coeffcient \(\beta_k\). \\
+        Define \(\pB_{k+1} = \grad f(\xB_{k+1}) - \beta_k \pB_k\).
+    }
+\end{algorithm}
+
+\begin{enumerate}
+    \item Dai-Yuan: 
+        \[
+            \beta_k = \frac{\norm{\grad f(\xB_{k+1})}}{\innerprod{\grad f(\xB_{k+1}) - \grad f(\xB_{k})}{\pB_k}}  
+        \]
+    \item Fletcher-Rieves:
+        \[
+            \beta_k = \frac{\norm{\grad f(\xB_{k+1})}}{\norm{\grad f(\xB_k)}}
+        \]  
+    \item Polak-Ribbiere:
+        \[
+            \beta_k = -\frac{\innerprod{\grad f(\xB_{k+1})}{\grad f(\xB_{k+1}) - \grad f(\xB_{k})}}{\norm{\grad f(\xB_k)}}  
+        \]
+\end{enumerate}
